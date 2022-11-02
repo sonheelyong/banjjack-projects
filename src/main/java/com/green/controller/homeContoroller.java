@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class homeContoroller {
 
 	@RequestMapping("/WriteMessage")
-	   public String writeMessage2() {
+	   public String writeMessage() {
 	      
 	      return "/message";
 	      
 	      
 	   }
 	   @RequestMapping("/RecepMessage")
-	   public String recepMessage() {
+	   public String recepMessage22() {
 	      
 	      return "/recepMessage";
 	   
