@@ -10,10 +10,5 @@ public class WriteController {
 	public String Write() {
 		return "write";
 	}
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> BSJ
 
 }
