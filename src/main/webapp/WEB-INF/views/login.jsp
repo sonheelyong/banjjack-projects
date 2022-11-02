@@ -56,7 +56,7 @@
 			const userid = document.querySelector('[name=userid]');
 			const passwd = document.querySelector('[name=passwd]');
 			if(userid.value == '') {
-				alert('아이디를 입력하세요');
+				alert('아이디를 입력하세요dd');
 				e.preventDefault();
 				e.stopPropagation();
 			}
