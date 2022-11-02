@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Msg">
+    <select id="selectRecept"
+            resultType="com.green.vo.MsgVo">
+        SELECT *
+        FROM MSG
+        WHERE RECEPT = #{recept}
+    </select>
+
+    <insert id="insertUser"
+            parameterType="com.green.vo.MsgVo">
+        INSERT INTO MSG (_ID, CONTENT, RECEPT, SEND, TIME ) VALUES (#{_id},#{content}, #{recept}, #{send}, #{time})
+    </insert>
+
+</mapper>
