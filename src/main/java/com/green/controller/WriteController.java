@@ -8,7 +8,7 @@ public class WriteController {
 	
 	@GetMapping("/Write")
 	public String Write() {
-		return "write3";
+		return "write4";
 	}
 
 }
