@@ -14,7 +14,7 @@ public class homeContoroller {
 	      
 	   }
 	   @RequestMapping("/RecepMessage")
-	   public String recepMessage22() {
+	   public String recepMessage() {
 	      
 	      return "/recepMessage";
 	   
