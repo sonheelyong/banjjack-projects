@@ -1,8 +1,7 @@
 package com.green.controller;
 
-import com.green.service.MsgService;
-import com.green.vo.MsgVo;
-import com.green.vo.UserVo;
+import com.green.service.NoteService;
+import com.green.vo.NoteVo;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class MsgContoroller {
-@Autowired private MsgService msgService;
+public class NoteContoroller {
+@Autowired private NoteService noteService;
 
 	@GetMapping("/WriteMsg")
 	public String writeMsgForm() {
@@ -21,8 +20,8 @@ public class MsgContoroller {
 	}
 
 	@PostMapping("/Write")
-	public String write(MsgVo vo){
-		msgService.insertMsg(vo);
+	public String write(NoteVo vo){
+		noteService.insertMsg(vo);
 		return "/recepMsg";
 	}
 
@@ -31,7 +30,7 @@ public class MsgContoroller {
 	@GetMapping("/RecepMessage")
 	public String recepMsg(@RequestParam("recep") String recept){
 		List<JSONObject> userVoList = new ArrayList<>();
-		for (MsgVo vo : msgService.selectRecept(recept)){
+		for (NoteVo vo : noteService.selectRecept(recept)){
 			JSONObject obj = new JSONObject();
 			obj.put("content", vo.getContent());
 			obj.put("send", vo.getSend());

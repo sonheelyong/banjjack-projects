@@ -1,7 +1,7 @@
 package com.green.dao.impl;
 
-import com.green.dao.MsgDao;
-import com.green.vo.MsgVo;
+import com.green.dao.NoteDao;
+import com.green.vo.NoteVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,18 +9,18 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("msgDao")
-public class MsgDaoImpl implements MsgDao {
+public class NoteDaoImpl implements NoteDao {
     @Autowired
     private SqlSession sqlSession;
 
     @Override
-    public void insertMsg(MsgVo vo) {
+    public void insertMsg(NoteVo vo) {
         sqlSession.insert("Msg.MsgWrite",vo);
     }
 
     @Override
-    public List<MsgVo> selectRecept(String recept) {
-        List<MsgVo> vo = sqlSession.selectList("Msg.selectRecept",recept);
+    public List<NoteVo> selectRecept(String recept) {
+        List<NoteVo> vo = sqlSession.selectList("Msg.selectRecept",recept);
         return vo;
     }
 }

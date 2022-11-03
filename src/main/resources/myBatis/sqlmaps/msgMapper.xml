@@ -5,14 +5,14 @@
 
 <mapper namespace="Msg">
     <select id="selectRecept"
-            resultType="com.green.vo.MsgVo">
+            resultType="com.green.vo.NoteVo">
         SELECT *
         FROM MSG
         WHERE RECEPT = #{recept}
     </select>
 
     <insert id="insertUser"
-            parameterType="com.green.vo.MsgVo">
+            parameterType="com.green.vo.NoteVo">
         INSERT INTO MSG (_ID, CONTENT, RECEPT, SEND, TIME ) VALUES (#{_id},#{content}, #{recept}, #{send}, #{time})
     </insert>
 

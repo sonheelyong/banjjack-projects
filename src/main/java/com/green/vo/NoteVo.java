@@ -1,6 +1,6 @@
 package com.green.vo;
 
-public class MsgVo {
+public class NoteVo {
 
     private int _id;
     private String content;
@@ -8,7 +8,7 @@ public class MsgVo {
     private String send;
     private String time;
 
-    public MsgVo(int _id, String content, String recept, String send, String time) {
+    public NoteVo(int _id, String content, String recept, String send, String time) {
         this._id = _id;
         this.content = content;
         this.recept = recept;
