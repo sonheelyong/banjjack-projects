@@ -42,10 +42,13 @@
 
 
 </style>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
+    window.onload = function() {
 
     // Fields
-    const username       = document.querySelector('[name=username]');
+    let username       = document.querySelector('[name=username]');
     const userpassword   = document.querySelector('[name=userpassword]');
     const repasswd       = document.querySelector('[name=repasswd]');
     const usernickname   = document.querySelector('[name=usernickname]');
@@ -61,11 +64,11 @@
     // pw : 글자 수 제한(8~16), 영문&숫자,특수문자
     // nickname : 글자수 제한 (2~15), 한글, 영문, 숫자 / 특수문자,자음,모음 x
     const nameVaildation     = /^[a-z0-9_-]{2,21}$/g;
-    const pwVaildation       = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,21}$/g;
+    const pwVaildation       = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[$@$!%*?&*-])[A-Za-z\d$@$!%*?&*-]{8,21}$/g;
     const nicknameVaildation = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/g;
     const form = document.querySelector('form');
 
-
+    // 회원가입 유효성 검사
     form.addEventListener('submit', function(e) {
         if(username.value == '') {
             checkError.innerHTML = '아이디를 입력하세요';
@@ -88,18 +91,55 @@
             e.preventDefault();
         }
         return true;
-    })
+    });
 
     // username
-    username.addEventListener('change', function() {
-        if(!nameVaildation.test(username.value)) {
+    username.addEventListener('blur', function() {
+        if(!nameVaildation.test(username.value.trim())) {
             unameCheck.innerHTML = '2자 이상 20자 이내로 입력해주세요';
             username.focus();
             return false;
-        } else {
+        } else if(nameVaildation.test(username.value.trim())) {
             unameCheck.innerHTML = '';
+        } else {
+            if(username.value.search(/\s/) != -1) {
+                unameCheck.innerHTML = '공백을 포함할 수 없습니다.';
+                username.focus();
+            } else {
+
+                // 아이디 중복확인 ajax 처리
+
+                console.log(username.value);
+                if( username.value.length != 0) {
+                    console.log(username.value.length);
+                    $.ajax({
+                        type:'POST',
+                        url: '/sign-up/usernameCheck',
+                        data: username.value,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=UTF-8',
+                        success: function(count) {
+                            if(count > 0) {
+                                unameCheck.innerHTML = '이미 존재하는 아이디입니다.';
+                                username.focus();
+
+                            } else {
+                                unameCheck.innerHTML = '사용가능한 아이디입니다.';
+                            }
+                        }, // success end
+                        error:function(error) {
+                            unameCheck.innerHTML = '아이디를 다시 입력해주세요.';
+                            username.focus();
+
+                        }
+                    }); // ajax end
+                } else {
+                    unameCheck.innerHTML = '아이디를 입력해주세요.';
+
+                }
+            } // 첫 if end
         }
-        return true;
+
     });
 
     // passwd
@@ -116,7 +156,7 @@
 
     // repasswd
     repasswd.addEventListener('change', function() {
-        if(repasswd.value != passwd.value) {
+        if(repasswd.value != userpassword.value) {
             re_pwCheck.innerHTML = '비밀번호가 일치하지 않습니다.';
             repasswd.value = '';
             repasswd.focus();
@@ -128,17 +168,52 @@
 
     // usernickname
     usernickname.addEventListener('change', function() {
-        if(!nameVaildation.test(usernickname.value)) {
+        if(!nicknameVaildation.test(usernickname.value)) {
             unicknameCheck.innerHTML = '2자이상 15자 이내로 입력해주세요.';
             usernickname.focus();
             return false;
+        } else if(nicknameVaildation.test(usernickname.value)) {
+                unicknameCheck.innerHTML = '';
         } else {
-            unicknameCheck.innerHTML = '';
-        }
+            if(usernickname.value.search(/\s/) != -1) {
+                unicknameCheck.innerHTML = '공백을 포함할 수 없습니다.';
+                usernickname.focus();
+            } else {
+
+                // 닉네임 중복확인 ajax 처리
+                if(usernickname.value.trim().length != 0) {
+                    $.ajax({
+                        type:'POST',
+                        data: usernickname,
+                        url: '/sign-up/nicknameCheck',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=UTF-8',
+                        success: function(count) {
+                            if(count > 0) {
+                                unicknameCheck.innerHTML = '이미 존재하는 아이디입니다.';
+                                usernickname.focus();
+                                return false;
+                            } else {
+                                unicknameCheck.innerHTML = '사용가능한 아이디입니다.';
+                            }
+                        }, // success end
+                        error:function(error) {
+                            unicknameCheck.innerHTML = '아이디를 다시 입력해주세요.';
+                            usernickname.focus();
+                            return false;
+                        }
+                    }); // ajax end
+                } else {
+                    unicknameCheck.innerHTML = '아이디를 입력해주세요.';
+                    return false;
+                }
+            } // 첫 if end
+        } // else end
         return true;
     });
 
 
+} // window.onload end
 	
 
 	
@@ -154,7 +229,7 @@
 		  <table id="container">
 		  	<tr>
                 <td>
-                    <input type="text" name="username" placeholder="아이디" maxlength="20"><br>
+                    <input type="text" name="username" id="username" placeholder="아이디" maxlength="20"><br>
                     <span id="unameCheck"></span>
                 </td>
             </tr>

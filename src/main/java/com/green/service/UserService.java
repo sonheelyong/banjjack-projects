@@ -20,12 +20,12 @@ public class UserService {
         return userDaoImpl.insertUser(userVo);
     }
 
-    public int getUserName(String username) {
-        return userDaoImpl.getUserName(username);
+    public int usernameCheck(String username) {
+        return userDaoImpl.usernameCheck(username);
     }
 
-    public int getNickName(String usernickname) {
-        return userDaoImpl.getNickName(usernickname);
+    public int nicknameCheck(String usernickname) {
+        return userDaoImpl.nicknameCheck(usernickname);
     }
 
     public void insertInfo(UserVo userVo) {
