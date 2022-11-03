@@ -18,7 +18,8 @@
 
     <insert id="insertComment"
             parameterType="com.green.vo.CommentVo">
-        INSERT INTO  comment_tb( _id, username, content_id, content, time) VALUES (#{_id}, #{username}, #{content_id}, #{content}, #{time})
+        INSERT INTO  comment_tb( _id, username, content_id, content, time)
+        VALUES (#{_id}, #{username}, #{content_id}, #{content}, #{time})
     </insert>
 
     <insert id="updateComment"
@@ -27,6 +28,14 @@
         SET content, #{content}
         Where    content_id = {content_id}
              AND username = #{username}
-             AND
+             AND _id      = #{_id}
     </insert>
+
+
+    <delete id="deleteComment">
+        DELETE FROM comment_tb
+        WHERE _id  = #{_id}
+
+    </delete>
+
 </mapper>

@@ -1,6 +1,7 @@
 package com.green.dao.impl;
 
 import com.green.dao.CommentDao;
+import com.green.vo.CommentSearchVo;
 import com.green.vo.CommentVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,27 +12,30 @@ import java.util.List;
 @Repository
 public class CommentDaoImpl implements CommentDao {
 
-    @Autowired
-    private SqlSession sqlsession;
+
     @Override
-    public List<CommentVo> list(Integer _id) {
-        return sqlsession.selectList("Comment.listcomment", _id);
+    public int getCommentCountByParenent(CommentSearchVo SearchVo) {
+        return 0;
     }
 
     @Override
-    public void write(CommentVo vo) {
-        sqlsession.insert("Comment.insertComment", vo);
-
+    public List<CommentVo> getCommentListByParent(CommentSearchVo commentVo) {
+        return null;
     }
 
     @Override
-    public void update(CommentVo vo) {
-        sqlsession.update("Comment.updateComment", vo);
+    public int updateComment(CommentVo comment) {
+        return 0;
     }
 
     @Override
-    public void delete(Integer content_id) {
+    public int deleteComment(CommentVo comment) {
+        return 0;
+    }
 
+    @Override
+    public int insertComment(CommentVo comment) {
+        return 0;
     }
 }
 

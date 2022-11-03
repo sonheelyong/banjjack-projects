@@ -1,16 +1,19 @@
 package com.green.dao;
 
+import com.green.vo.CommentSearchVo;
 import com.green.vo.CommentVo;
 
 import java.util.List;
 
 public interface CommentDao {
-    public  List<CommentVo> list(Integer _id);
+   public int getCommentCountByParenent(CommentSearchVo SearchVo);
 
-    void write(CommentVo vo);
+   public List<CommentVo> getCommentListByParent(CommentSearchVo commentVo);
 
-    void update(CommentVo vo);
+   public int updateComment(CommentVo comment);
 
-    void delete(Integer content_id );
+   public int deleteComment(CommentVo comment);
+
+   public int insertComment(CommentVo comment);
 
 }

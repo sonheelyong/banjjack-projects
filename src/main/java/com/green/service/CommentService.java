@@ -1,17 +1,18 @@
 package com.green.service;
 
+import com.green.vo.CommentSearchVo;
 import com.green.vo.CommentVo;
 
 import java.util.List;
 
 public interface CommentService {
 
-    public List<CommentVo> list (Integer _id) ;
+    public List<CommentVo> getCommentListByParent(CommentSearchVo searchVo);
 
-    public void write(CommentVo vo);
+    public void commentEdit(CommentVo comment) ;
 
-    public void update(CommentVo vo);
+    public void commentDelete(CommentVo comment) ;
 
-    public void delete(Integer content_id);
+    public void commentWrite(CommentVo comment) ;
 
 }
