@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Comment">
-    <select id="listComment"
+    <select id="commentlist"
             resultType="com.green.vo.CommentVo">
         SELECT
             _id,
@@ -13,20 +13,30 @@
             content
         FROM
             comment_tb
+        WHERE
+            content_id
 
     </select>
 
     <insert id="insertComment"
             parameterType="com.green.vo.CommentVo">
-        INSERT INTO  comment_tb( _id, username, content_id, content, time) VALUES (#{_id}, #{username}, #{content_id}, #{content}, #{time})
+        INSERT INTO  comment_tb( _id, content_id, username, , content, time)
+        VALUES (#{_id}, #{content}, #{username}, #{content_id},  #{time})
     </insert>
 
     <insert id="updateComment"
             parameterType="com.green.vo.CommentVo">
         UPDATE comment_tb
         SET content, #{content}
-        Where    content_id = {content_id}
-             AND username = #{username}
-             AND
+        Where    username = #{username}
+             AND _id      = #{_id}
     </insert>
+
+
+    <delete id="deleteComment">
+        DELETE FROM comment_tb
+        WHERE _id  = #{_id}
+
+    </delete>
+
 </mapper>

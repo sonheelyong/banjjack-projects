@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.xml.stream.events.Comment;
+import java.util.HashMap;
 import java.util.List;
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -14,31 +15,24 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentDao commentDao;
 
-
     @Override
     public List<CommentVo> getCommentList(int content_id) {
-        List<CommentVo> commentList = commentDao.getCommentList(content_id);
-        return commentDao.getCommentList(content_id);
+         List<CommentVo> commentList = commentDao.getCommentList(content_id);
+         return     commentList;
     }
 
     @Override
-    public void commentEdit(CommentVo comment) {
-        CommentVo vo= (CommentVo) commentDao.getCommentList(comment.get_id());
-        if(!vo.getUsername().equals((comment.getUsername())));
-        commentDao.updateComment(comment);
-
+    public void commentUpdate(HashMap<String, Object> map) {
+        commentDao.commentUpdate(map);
     }
 
     @Override
-    public void commentDelete(CommentVo comment) {
-        CommentVo vo= (CommentVo) commentDao.getCommentList(comment.get_id());
-        if(!vo.getUsername().equals((comment.getUsername())));
-        commentDao.deleteComment(comment);
+    public void commentDelete(HashMap<String, Object> map) {
+        commentDao.commentDelete( map);
     }
 
     @Override
-    public void commentWrite(CommentVo comment) {
-
-        commentDao.insertComment(comment);
+    public void commentWrite(CommentVo commentVo) {
+        commentDao.commentWrite( commentVo );
     }
 }

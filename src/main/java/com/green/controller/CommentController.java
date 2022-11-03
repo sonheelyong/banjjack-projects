@@ -2,9 +2,11 @@ package com.green.controller;
 
 import com.green.service.CommentService;
 import com.green.vo.CommentVo;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,36 +17,32 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 	@GetMapping("comment/commentList.do")
-	public Map<String, Object> commentList(int content_id){
-		List<CommentVo> commentList=commentService.getCommentList(content_id);
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("data", commentList);
-		return map;
-
+	@ResponseBody
+	public List<JSONObject> getCommentList(int content_id) {
+		List<JSONObject> commentList = new ArrayList<>();
+		for (CommentVo cl : commentService.getCommentList(content_id)) {
+			JSONObject obj = new JSONObject();
+			obj.put("name", cl.getUsername());
+			obj.put("commentContent", cl.getContent());
+			obj.put("time", cl.getTime());
+			commentList.add(obj);
+		}
+		return commentList;
 	}
 	@PostMapping ("comment/commentWrite.do")
-	public Map<String, Object> commentWrite(CommentVo comment){
-		System.out.println(comment);
-		commentService.commentWrite(comment);
 
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("result", true);
-		map.put("msg", "등록했습니다");
-		return map;
-
-	}
-	@PostMapping("comment/commentEdit.do")
-	public Map<String, Object> commentEdit(CommentVo comment){
-		Map<String, Object> map=new HashMap<String, Object>();
-		commentService.commentEdit(comment);
-		map.put("result",true);
-		map.put("msg", "수정완료");
-		return map;
-	}
-	@PostMapping("comment/commentDelete.do")
-	public Map<String, Object> commentDelete(CommentVo comment) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		return map;
+		public List<JSONObject> commentWrite(CommentVo commentVo) {
+		List<JSONObject> commentInsert = new ArrayList<>();
+		for (CommentVo cl : commentService.commentWrite(commentVo)) {
+			JSONObject obj = new JSONObject();
+			obj.put("contentid", cl.getContent_id());
+			obj.put("commentid", cl.get_id());
+			obj.put("name", cl.getUsername());
+			obj.put("commentContent", cl.getContent());
+			obj.put("time", cl.getTime());
+			commentInsert.add(obj);
+		}
+			return commentInsert;
 	}
 }
 
