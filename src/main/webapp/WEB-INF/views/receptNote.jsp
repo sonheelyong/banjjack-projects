@@ -10,30 +10,34 @@
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
         <script>
-           $( function() {
+
+
         		   $.ajax( {
-        			   url  :  '/receptNote'  ,
+        			   url  :  '/test1?recept=1234'  ,
         			   data :  {
         				   _id : $('#_id').val() ,
         				   content : $('#content').val(),
         				   send : $('#send').val() ,
         				   time : $('#time').val() ,
         		       },
-        		       method   : "POST"
+        		       method   : "GET",
+        		       dataType:  "json"
         		   } )
         		   .done(function( result, textStatus, xhr ) {
         			   console.log( result );
         			   var resultStr = JSON.stringify( result ); // JSOn -> string
         			   //alert(resultStr);
-        			   var _id       = result._id;
-        			   var content   = result.content;
-        			   var send      = result.send;
+        			   var _id       = result[0]._id;
+        			   var time = 1234;
+        			   var content   = result[0].content;
+        			   var send      = result[0].send;
+        			   console.log (_id + " / " + content + " / " + send + " / " + time);
         			   var html      = "<tr>";
         			   html         += '<td><input type ="checkbox" name = "chk_list"></td>';
         			   html         += '<td style="text-align: center;">' + _id + '</td>';
         			   html         += '<td style="text-align: center; padding-left:30px;">';
         			   html         += '<div class="cc">';
-        			   html         += '<a href ="/readNote">'+ cont +'</a>';
+        			   html         += '<a href ="/readNote">'+ content +'</a>';
         			   html         += '</div></td>';
         			   html         += '<td style="width:170px; text-align: center;">'+send+'</td>';
         			   html         += '<td style="width:200px; text-align: center;">'+time+'</td>';
@@ -46,10 +50,10 @@
         			   alert('Error:' + error)
         		   });
 
-        	   })
 
 
-           });
+
+
         </script>
     </head>
     <body>
@@ -86,33 +90,10 @@
 			
 	<tbody >	    
 		    <div id="noteList">
-		<tr>
-		    <td><input type ="checkbox" name = "chk_list"></td>
-			<td style="text-align: center;">11</td>
-			<td style="text-align: center; padding-left:30px;">
-		<div class="cc">
-		<a href ="/ReadMessage">ㅇㄴ러나이러ㅏㄴ얼ㄴ이ㅓㄹ나이ㅓㄹ나이ㅓㄹㄴ이런이ㄴ이랑니;랑ㄴ;ㅣㅏ링;나리;ㄴ아리;ㅇ날;니아리;ㄴ아리;ㄴ알;ㅣㅇ나리;ㄴㅇ</a>
-		</div>	
-			</td>
-			<td style="width:170px; text-align: center;">능린아ㅓ</td>
-			<td style="width:200px; text-align: center;">2022-11-01</td>
-		</tr >
+
 		    </div>
 	</tbody>
-	
-	<tbody>
-		<tr >
-		    <td><input type ="checkbox" name = "chk_list"></td>
-			<td style="text-align: center;">22</td>
-			<td style="text-align: center; padding-left:30px;">
-		<div class="cc">
-		<a href ="/ReadMessage">ㅇㄴ러나이러ㅏㄴ얼ㄴ이ㅓㄹ나이ㅓㄹ나이ㅓㄹㄴ이런이ㄴ이랑니;랑ㄴ;ㅣㅏ링;나리;ㄴ아리;ㅇ날;니아리;ㄴ아리;ㄴ알;ㅣㅇ나리;ㄴㅇ </a>
-		</div>	
-		 	</td>
-			<td style="width:170px; text-align: center;">능린아d</td>
-			<td style="width:200px; text-align: center;">2022-11-01</td>
-		</tr>		
-	</tbody>
+
 </table>
 <hr>
                         <!-- 쪽지함 이동 버튼들 -->
