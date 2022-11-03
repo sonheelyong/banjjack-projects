@@ -16,6 +16,9 @@ public class NoteVo {
         this.time = time;
     }
 
+    public NoteVo() {
+    }
+
     public int get_id() {
         return _id;
     }

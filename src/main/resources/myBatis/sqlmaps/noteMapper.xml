@@ -3,17 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Msg">
+<mapper namespace="Note">
+
     <select id="selectRecept"
             resultType="com.green.vo.NoteVo">
         SELECT *
-        FROM MSG
-        WHERE RECEPT = #{recept}
+        FROM note_tb
+        WHERE recept = #{recept}
     </select>
 
-    <insert id="insertUser"
-            parameterType="com.green.vo.NoteVo">
-        INSERT INTO MSG (_ID, CONTENT, RECEPT, SEND, TIME ) VALUES (#{_id},#{content}, #{recept}, #{send}, #{time})
+    <insert id="insertNote"
+            parameterType="com.green.vo.NoteVo" useGeneratedKeys="true" keyProperty="_id">
+        INSERT INTO note_tb (content, recept, send) VALUES (#{content}, #{recept}, #{send})
     </insert>
 
 </mapper>

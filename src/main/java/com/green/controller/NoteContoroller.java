@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,43 +15,48 @@ import java.util.List;
 public class NoteContoroller {
 @Autowired private NoteService noteService;
 
-	@GetMapping("/WriteMsg")
+	@RequestMapping ("/writeNoteForm")
 	public String writeMsgForm() {
-		return "/message";
+		return "/writeNote";
 	}
 
-	@PostMapping("/Write")
-	public String write(NoteVo vo){
-		noteService.insertMsg(vo);
-		return "/recepMsg";
+	@RequestMapping(value = "/writenote", method = RequestMethod.POST )
+	public String write(HttpServletRequest request){
+		NoteVo noteVo = new NoteVo();
+		noteVo.setContent(request.getParameter("content"));
+		noteVo.setSend(request.getParameter("send"));
+		noteVo.setRecept(request.getParameter("recept"));
+		System.out.println(noteVo.toString());
+		noteService.insertNote(noteVo);
+		return "/receptNote";
 	}
 
 
-
-	@GetMapping("/RecepMessage")
-	public String recepMsg(@RequestParam("recep") String recept){
-		List<JSONObject> userVoList = new ArrayList<>();
+	@GetMapping("/receptNote")
+	@ResponseBody
+	public  List<JSONObject> receptNote(@RequestParam String recept){
+		List<JSONObject> NoteVoList = new ArrayList<>();
 		for (NoteVo vo : noteService.selectRecept(recept)){
 			JSONObject obj = new JSONObject();
 			obj.put("content", vo.getContent());
 			obj.put("send", vo.getSend());
 			obj.put("time", vo.getTime());
-			userVoList.add(obj);
+			NoteVoList.add(obj);
 		}
 
-		return "/recepMessage";
+		return NoteVoList;
 
 	}
-	@RequestMapping("/SendMessage")
+	@RequestMapping("/readNote")
+	public String readMessage() {
+		return "/readNote";
+
+
+	}
+	@RequestMapping("/sendNote")
 	public String sendMessage() {
 
-		return "/sendMessage";
-
-	}
-	@RequestMapping("/ReadMessage")
-	public String readMessage() {
-		return "/readMessage";
-
+		return "/sendNote";
 
 	}
 }
