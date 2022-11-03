@@ -32,9 +32,9 @@ public class NoteContoroller {
 	}
 
 
-	@GetMapping("/test1")
+	@GetMapping("/test")
 	@ResponseBody
-	public  List<JSONObject> test1(@RequestParam String recept){
+	public  List<JSONObject> test(@RequestParam String recept){
 		List<JSONObject> NoteVoList = new ArrayList<>();
 		for (NoteVo vo : noteService.selectRecept(recept)){
 			JSONObject obj = new JSONObject();
