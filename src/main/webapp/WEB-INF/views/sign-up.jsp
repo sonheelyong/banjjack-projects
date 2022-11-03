@@ -43,106 +43,104 @@
 
 </style>
 <script>
-	
 
-	window.onload = function() {
-	    // Fields
-		const username       = document.querySelector('[name=username]');
-		const passwd         = document.querySelector('[name=passwd]');
-		const repasswd       = document.querySelector('[name=repasswd]');
-		const usernickname   = document.querySelector('[name=usernickname]');
-		// 오류체크메세지
-		const unameCheck     = document.getElementById('unameCheck');
-		const pwCheck        = document.getElementById('pwCheck');
-		const re_pwCheck     = document.getElementById('re_pwCheck');
-		const unicknameCheck = document.getElementById('unicknameCheck');
-		const checkError     = document.getElementById('checkError');
-		
-	 	// 정규식
-	 	// id : 글자 수 제한(2~20), 영문&숫자
-	 	// pw : 글자 수 제한(8~16), 영문&숫자,특수문자
-	 	// nickname : 글자수 제한 (2~15), 한글, 영문, 숫자 / 특수문자,자음,모음 x
-		const nameVaildation     = /^[a-z0-9_-]{2,21}$/g;
-		const pwVaildation       = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,21}$/g;
-		const nicknameVaildation = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/g;
-		const form = document.querySelector('form');
+    // Fields
+    const username       = document.querySelector('[name=username]');
+    const userpassword   = document.querySelector('[name=userpassword]');
+    const repasswd       = document.querySelector('[name=repasswd]');
+    const usernickname   = document.querySelector('[name=usernickname]');
+    // 오류체크메세지
+    const unameCheck     = document.getElementById('unameCheck');
+    const pwCheck        = document.getElementById('pwCheck');
+    const re_pwCheck     = document.getElementById('re_pwCheck');
+    const unicknameCheck = document.getElementById('unicknameCheck');
+    const checkError     = document.getElementById('checkError');
 
-		
-		form.addEventListener('submit', function(e) {
-		    if(username.value == '') {
-                checkError.innerHTML = '아이디를 입력하세요';
-                username.focus();
-                e.preventDefault();
+    // 정규식
+    // id : 글자 수 제한(2~20), 영문&숫자
+    // pw : 글자 수 제한(8~16), 영문&숫자,특수문자
+    // nickname : 글자수 제한 (2~15), 한글, 영문, 숫자 / 특수문자,자음,모음 x
+    const nameVaildation     = /^[a-z0-9_-]{2,21}$/g;
+    const pwVaildation       = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,21}$/g;
+    const nicknameVaildation = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/g;
+    const form = document.querySelector('form');
 
-		    } else if (passwd.value == '') {
-		        checkError.innerHTML = '비밀번호를 입력하세요';
-		        passwd.focus();
-		        e.preventDefault();
 
-		    } else if (repasswd.value == '') {
-		        checkError.innerHTML = '비밀번호 확인을 입력하세요';
-		        repasswd.focus();
-		        e.preventDefault();
+    form.addEventListener('submit', function(e) {
+        if(username.value == '') {
+            checkError.innerHTML = '아이디를 입력하세요';
+            username.focus();
+            e.preventDefault();
 
-		    } else if (usernickname.value == '') {
-		        checkError.innerHTML = '닉네임을 입력하세요';
-		        usernickname.focus();
-		        e.preventDefault();
-		    }
-            return true;
-		})
-	
-		// username
-		username.addEventListener('change', function() {
-			if(!nameVaildation.test(username.value)) {
-				unameCheck.innerHTML = '2자 이상 20자 이내로 입력해주세요';
-				username.focus();
-				return false;
-			} else {
-				unameCheck.innerHTML = '';
-			} 
-			return true;
-		});
-		
-		// passwd
-        passwd.addEventListener('change', function() {
-            if(!pwVaildation.test(passwd.value)) {
-                pwCheck.innerHTML = '2자 이상 20자 이내로 입력해주세요.';
-                passwd.focus();
-                return false;
-            } else {
-                pwCheck.innerHTML = '';
-            }
-            return true;
-        });
+        } else if (userpassword.value == '') {
+            checkError.innerHTML = '비밀번호를 입력하세요';
+            userpassword.focus();
+            e.preventDefault();
 
-        // repasswd
-        repasswd.addEventListener('change', function() {
-            if(repasswd.value != passwd.value) {
-                re_pwCheck.innerHTML = '비밀번호가 일치하지 않습니다.';
-                repasswd.value = '';
-                repasswd.focus();
-            } else {
-                re_pwCheck.innerHTML = '비밀번호가 일치합니다.';
-            }
-            return true;
-        });
+        } else if (repasswd.value == '') {
+            checkError.innerHTML = '비밀번호 확인을 입력하세요';
+            repasswd.focus();
+            e.preventDefault();
 
-        // usernickname
-        usernickname.addEventListener('change', function() {
-            if(!nameVaildation.test(usernickname.value)) {
-                unicknameCheck.innerHTML = '2자이상 15자 이내로 입력해주세요.';
-                usernickname.focus();
-                return false;
-            } else {
-                unicknameCheck.innerHTML = '';
-            }
-            return true;
-        });
+        } else if (usernickname.value == '') {
+            checkError.innerHTML = '닉네임을 입력하세요';
+            usernickname.focus();
+            e.preventDefault();
+        }
+        return true;
+    })
+
+    // username
+    username.addEventListener('change', function() {
+        if(!nameVaildation.test(username.value)) {
+            unameCheck.innerHTML = '2자 이상 20자 이내로 입력해주세요';
+            username.focus();
+            return false;
+        } else {
+            unameCheck.innerHTML = '';
+        }
+        return true;
+    });
+
+    // passwd
+    userpassword.addEventListener('change', function() {
+        if(!pwVaildation.test(userpassword.value)) {
+            pwCheck.innerHTML = '2자 이상 20자 이내로 입력해주세요.';
+            userpassword.focus();
+            return false;
+        } else {
+            pwCheck.innerHTML = '';
+        }
+        return true;
+    });
+
+    // repasswd
+    repasswd.addEventListener('change', function() {
+        if(repasswd.value != passwd.value) {
+            re_pwCheck.innerHTML = '비밀번호가 일치하지 않습니다.';
+            repasswd.value = '';
+            repasswd.focus();
+        } else {
+            re_pwCheck.innerHTML = '비밀번호가 일치합니다.';
+        }
+        return true;
+    });
+
+    // usernickname
+    usernickname.addEventListener('change', function() {
+        if(!nameVaildation.test(usernickname.value)) {
+            unicknameCheck.innerHTML = '2자이상 15자 이내로 입력해주세요.';
+            usernickname.focus();
+            return false;
+        } else {
+            unicknameCheck.innerHTML = '';
+        }
+        return true;
+    });
 
 
 	
-	}
+
 	
 
 
@@ -152,7 +150,7 @@
 	<div class="sign-upForm">
 	<h2>회원가입</h2>
 	<hr />
-		<form action="/sign-up" method="POST" id="form1">
+		<form action="/sign-up/register" method="POST" id="form1">
 		  <table id="container">
 		  	<tr>
                 <td>
@@ -162,7 +160,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="password" name="passwd" placeholder="비밀번호" maxlength="20"><br>
+                    <input type="password" name="userpassword" placeholder="비밀번호" maxlength="20"><br>
                     <span id="pwCheck"></span>
                 </td>
             </tr>
@@ -182,10 +180,11 @@
                 <td><span id="checkError"></span></td>
             </tr>
             <tr>
-                <td><input type="submit" name="signup" value="가입하기"></td>
+                <td><input type="submit" name="signup" value="가입하기"/></td>
             </tr>
 		  </table>
 		</form>
+
 	</div>
 </body>
 </html>

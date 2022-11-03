@@ -22,4 +22,18 @@ public class UserDaoImpl implements UserDao {
     public int insertUser(UserVo userVo) {
         return sqlSession.insert("User.insertUser", userVo);
     }
+
+    public int getUserName(String username) {
+        return sqlSession.selectOne("User.getUserName", username);
+    }
+
+    public int getNickName(String usernickname) {
+        return sqlSession.selectOne("User.getNickName", usernickname);
+    }
+
+    public void insertInfo(UserVo userVo) {
+        sqlSession.insert("User.insertInfo", userVo);
+    }
 }
+
+
