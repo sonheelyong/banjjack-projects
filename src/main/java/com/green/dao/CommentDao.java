@@ -1,14 +1,12 @@
 package com.green.dao;
 
-import com.green.vo.CommentSearchVo;
 import com.green.vo.CommentVo;
 
 import java.util.List;
 
 public interface CommentDao {
-   public int getCommentCountByParenent(CommentSearchVo SearchVo);
 
-   public List<CommentVo> getCommentListByParent(CommentSearchVo commentVo);
+   public List<CommentVo> getCommentList(int content_id);
 
    public int updateComment(CommentVo comment);
 
