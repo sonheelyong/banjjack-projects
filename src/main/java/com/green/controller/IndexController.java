@@ -23,29 +23,20 @@ public class IndexController {
     //http://localhost:8080/user
     @GetMapping("/user")
     @ResponseBody
-    public String selectUser(){
+    public String selectUser() {
         return userService.selectAll().toString();
     }
 
     //http://localhost:8080/user/insert?username=123456789&password=4567&nickname=Hello
     @GetMapping("/user/insert")
     @ResponseBody
-    public int insertUser(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("nickname") String nickname){
-        UserVo userVo = new UserVo(0,username, password, nickname);
+    public int insertUser(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("nickname") String nickname) {
+        UserVo userVo = new UserVo(0, username, password, nickname);
         int result = userService.insertUser(userVo);
         if (result == 1) { //제대로 가입
             return result;
         }
         return 0; //가입실패 (아이디가 21자 이상이거나, 비밀번호가 21자 이상이거나, 닉네임이 16자 이상이거나, 아이디가 중복일 경우)
     }
-    
-    @RequestMapping("/login")
-    public String login() {
-    	return "/login";
-    }
-    
-    @RequestMapping("/sign-up")
-    public String signup() {
-    	return "/sign-up";
-    }
+
 }
