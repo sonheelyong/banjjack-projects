@@ -78,7 +78,7 @@
 	<div class="login-form">
 	<h2>로그인 페이지</h2>
 	<hr />
-		<form action="loginProcess" method="POST" id="form1">
+		<form action="/login/successLogin" method="POST" id="form1">
 			<table id="container">
                 <tr>
                     <td>

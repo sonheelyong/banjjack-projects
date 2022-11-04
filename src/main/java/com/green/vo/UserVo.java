@@ -45,4 +45,13 @@ public class UserVo {
         this.usernickname = usernickname;
     }
 
+    @Override
+    public String toString() {
+        return "UserVo{" +
+                "_id=" + _id +
+                ", username='" + username + '\'' +
+                ", userpassword='" + userpassword + '\'' +
+                ", usernickname='" + usernickname + '\'' +
+                '}';
+    }
 }

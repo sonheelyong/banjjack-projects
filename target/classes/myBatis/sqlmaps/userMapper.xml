@@ -14,30 +14,28 @@
         INSERT INTO user_tb (_id, username, userpassword, usernickname) VALUES (#{_id},#{username}, #{userpassword}, #{usernickname})
     </insert>
 
-    <select id="getUserName"
-            resultType="com.green.vo.UserVo">
-        SELECT username
+    <select id="usernameCheck"
+            resultType="Integer">
+        SELECT count(*)
         FROM   user_tb
         WHERE  username = #{username}
     </select>
 
-    <select id="getNickName"
+    <select id="nicknameCheck"
             resultType="com.green.vo.UserVo">
-        SELECT usernickname
+        SELECT count(*)
         FROM   user_tb
         WHERE  usernickname = #{usernickname}
-
     </select>
 
-    <select id="getIdSearch"
+
+    <select id="successLogin"
             resultType="com.green.vo.UserVo">
-        SELECT username, _id
-        FORM   user_tb
-        WHERE  username = #{username} and _id = #{_id}
+        SELECT username, userpassword
+        FROM   user_tb
+        WHERE  username = #{username} AND userpassword = #{userpassword}
 
-   </select>
-
-
+    </select>
 
     <insert id="insertInfo"
             parameterType="com.green.vo.UserVo">

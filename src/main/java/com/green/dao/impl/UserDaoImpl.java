@@ -34,6 +34,11 @@ public class UserDaoImpl implements UserDao {
     public void insertInfo(UserVo userVo) {
         sqlSession.insert("User.insertInfo", userVo);
     }
+
+    public UserVo successLogin(UserVo userVo) {
+        return sqlSession.selectOne("User.successLogin", userVo);
+    }
+
 }
 
 
