@@ -7,4 +7,8 @@ import java.util.List;
 public interface UserDao {
     List<UserVo> selectAll();
     int insertUser(UserVo userVo);
+
+    int usernameCheck(String username);
+
+    int nicknameCheck(String usernickname);
 }

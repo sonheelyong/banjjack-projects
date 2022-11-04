@@ -41,9 +41,9 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
 	window.onload = function() {
-	    const username = document.querySelector('[name=username]');
-	    const passwd = document.querySelector('[name=passwd]');
-		const form = document.querySelector('form');
+	    const username     = document.querySelector('[name=username]');
+	    const userpassword = document.querySelector('[name=userpassword]');
+		const form         = document.querySelector('form');
 
 		form.addEventListener('submit', function(e) {
 
@@ -52,9 +52,9 @@
 				username.focus();
 				e.preventDefault();
 			}
-			else if(passwd.value == '') {
+			else if(userpassword.value == '') {
 				checkError.innerHTML = '비밀번호를 입력하세요';
-				passwd.focus();
+				userpassword.focus();
 				e.preventDefault();
 			}
 			return true;
@@ -88,7 +88,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="password" name="passwd" placeholder="비밀번호" maxlength="20"><br>
+                        <input type="password" name="userpassword" placeholder="비밀번호" maxlength="20"><br>
                         <span id="pwCheck"></span>
                     </td>
                 </tr>
