@@ -32,5 +32,8 @@ public class UserService {
          userDaoImpl.insertInfo(userVo);
     }
 
+    public UserVo successLogin(UserVo userVo) {
+        return userDaoImpl.successLogin(userVo);
+    }
 }
 
