@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.xml.stream.events.Comment;
 import java.util.HashMap;
 import java.util.List;
-@Service
+@Service("CommentService")
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
