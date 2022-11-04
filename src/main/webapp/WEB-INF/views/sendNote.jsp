@@ -6,8 +6,61 @@
         <meta charset="UTF-8">
         <title>받은 쪽지함</title>
 
-
         <link rel="stylesheet" href="/css/messageBox.css">
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+        <script>
+
+
+        		   $.ajax( {
+        			   url  :  '/test?recept=1234'  ,
+        			   data :  {
+        				   _id : $('#_id').val() ,
+        				   content : $('#content').val(),
+        				   send : $('#send').val() ,
+        				   time : $('#time').val() ,
+        		       },
+        		       method   : "GET",
+        		       dataType:  "json"
+        		   } )
+        		   .done(function( result, textStatus, xhr ) {
+        			   console.log( result );
+        			   var resultStr = JSON.stringify( result ); // JSOn -> string
+
+                        var html= "";
+        			  for(var i = 0; i < result.length; i++ ) {
+                     var _id = result[i]._id
+                     var content = result[i].content
+                     var send = result[i].send
+                     var time = 1234
+
+                     console.log(send + "i = " + result[i].content)
+
+
+        			   html         += "<tr>";
+        			   html         += '<td><input type ="checkbox" name = "chk_list"></td>';
+        			   html         += '<td style="text-align: center;">' + _id + '</td>';
+        			   html         += '<td style="text-align: center; padding-left:30px;">';
+        			   html         += '<div class="cc">';
+        			   html         += '<a href ="/readNote">'+ content +'</a>';
+        			   html         += '</div></td>';
+        			   html         += '<td style="width:170px; text-align: center;">'+ send +'</td>';
+        			   html         += '<td style="width:200px; text-align: center;">'+ time +'</td>';
+        			   html         += "</tr>";
+                      }
+                      console.log(html);
+                        $('#noteList').html( html );
+        		   })
+        		   .fail(function(error, textStatus, errorThrown ) {
+        			   conmsole.log ( error );
+        			   alert('Error:' + error)
+        		   });
+
+
+
+
+
+        </script>
     </head>
     <body>
 
@@ -39,36 +92,11 @@
 			<th>등록일</th>
 
 		</tr>
-	</thead>
+	</thead >
+	        <tbody id = "noteList">
 
-	<tbody >
-		<tr>
-		    <td><input type ="checkbox" name = "chk_list"></td>
-			<td style="text-align: center;">11</td>
-			<td style="text-align: center; padding-left:30px;">
-		<div class="cc">
-		<a href ="/ReadMessage">ㅇㄴ러나이러ㅏㄴ얼ㄴ이ㅓㄹ나이ㅓㄹ나이ㅓㄹㄴ이런이ㄴ이랑니;랑ㄴ;ㅣㅏ링;나리;ㄴ아리;ㅇ날;니아리;ㄴ아리;ㄴ알;ㅣㅇ나리;ㄴㅇ</a>
-		</div>
-			</td>
-			<td style="width:170px; text-align: center;">능린아ㅓ</td>
-			<td style="width:200px; text-align: center;">2022-11-01</td>
+	        </tbody>
 
-		</tr >
-	</tbody>
-
-	<tbody>
-		<tr >
-		    <td><input type ="checkbox" name = "chk_list"></td>
-			<td style="text-align: center;">22</td>
-			<td style="text-align: center; padding-left:30px;">
-		<div class="cc">
-		<a href ="/ReadMessage">ㅇㄴ러나이러ㅏㄴ얼ㄴ이ㅓㄹ나이ㅓㄹ나이ㅓㄹㄴ이런이ㄴ이랑니;랑ㄴ;ㅣㅏ링;나리;ㄴ아리;ㅇ날;니아리;ㄴ아리;ㄴ알;ㅣㅇ나리;ㄴㅇ </a>
-		</div>
-		 	</td>
-			<td style="width:170px; text-align: center;">능린아d</td>
-			<td style="width:200px; text-align: center;">2022-11-01</td>
-		</tr>
-	</tbody>
 </table>
 <hr>
                         <!-- 쪽지함 이동 버튼들 -->
@@ -78,10 +106,10 @@
                             <li><button onclick="location.href='/WriteMessage'">쪽지 보내기</button></li>
                         </ul>
                     </div>
- 
+
                 </div>
             </div>
         </section>
- 
+
     </body>
 </html>

@@ -1,37 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>ÂÊÁö</title>
+    <title>ï¿½ï¿½ï¿½ï¿½</title>
     <link rel="stylesheet" href="/css/message.css?sdfsd">
 </head>
 <body>
     <section>
         <div id="main_content">
             <div id="message_box">
-                <h3 id="write_title">¹ÞÀº ÂÊÁö</h3>
+                <h3 id="write_title">ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</h3>
  
                 
                 <ul class="top_buttons">
-                    <li><a href="/RecepMessage">¹ÞÀº ÂÊÁöÇÔ</a></li>
-                    <li><a href="/SendMessage">º¸³½ ÂÊÁöÇÔ</a></li>
+                    <li><a href="/RecepMessage">ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</a></li>
+                    <li><a href="/SendMessage">ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</a></li>
                 </ul>               
                <form action="" method="post" name="message_form">
                         <div id="write_msg">
                             <ul>
                                 <li>
-                                    <span class="col1">º¸³½ »ç¶÷ : </span>
-                                    <span class="col2">º¸³½»ç¶÷¾ÆÀÌµð</span>
+                                    <span class="col1">ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ : </span>
+                                    <span class="col2">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½</span>
                                 </li>
                                 
                                 <li id="textarea">
-                                    <span class="col1">³»¿ë : </span>
+                                    <span class="col1">ï¿½ï¿½ï¿½ï¿½ : </span>
                                     <span class="col2"><textarea name="content"></textarea></span>
                                 </li>                                
                             </ul>
-                            <input type="submit" value="´äÀåÇÏ±â">
+                            <input type="submit" value="ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½">
                         </div>
                 </form>
             </div>

@@ -32,12 +32,13 @@ public class NoteContoroller {
 	}
 
 
-	@GetMapping("/test")
+	@GetMapping("/getrecenote")
 	@ResponseBody
-	public  List<JSONObject> test(@RequestParam String recept){
+	public  List<JSONObject> getrecepnote(@RequestParam String recept){
 		List<JSONObject> NoteVoList = new ArrayList<>();
 		for (NoteVo vo : noteService.selectRecept(recept)){
 			JSONObject obj = new JSONObject();
+			obj.put("_id", vo.get_id());
 			obj.put("content", vo.getContent());
 			obj.put("send", vo.getSend());
 			obj.put("time", vo.getTime());
@@ -46,28 +47,32 @@ public class NoteContoroller {
 
 		return NoteVoList;
 
-
-
 	}
-
 	@RequestMapping("/receptNote")
 	public String recepte(){
-
 		return "/receptNote";
 	}
 
 
+	@GetMapping("/getsendNote")
+	@ResponseBody
+	public  List<JSONObject> getsendNote(@RequestParam String send) {
+		List<JSONObject> NoteVoList = new ArrayList<>();
+		for (NoteVo vo : noteService.selectRecept(send)) {
+			JSONObject obj = new JSONObject();
+			obj.put("_id", vo.get_id());
+			obj.put("content", vo.getContent());
+			obj.put("recept", vo.getRecept());
+			obj.put("time", vo.getTime());
+			NoteVoList.add(obj);
+		}
+		return NoteVoList;
+	}
 
 	@RequestMapping("/readNote")
-	public String readMessage() {
-		return "/readNote";
-
-
-	}
-	@RequestMapping("/sendNote")
 	public String sendMessage() {
 
-		return "/sendNote";
+		return "/readDetailNote";
 
 	}
 }
