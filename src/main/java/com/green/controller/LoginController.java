@@ -60,7 +60,7 @@ public class LoginController{
         return "/signup";
     }
 
-    // 로그인-아이디 매치 Session 배치
+    // 로그인-아이디 매치 Session 배치 // post: 보낼 때 get: 가져올 때
     @RequestMapping(value="/login/successLogin", method = {RequestMethod.POST})
     public String successLogin(UserVo userVo) {
         System.out.println(userVo.toString());
@@ -71,10 +71,17 @@ public class LoginController{
     @GetMapping("/getUser")
     @ResponseBody
     public int getuser(@RequestParam("username") String username) {
-        int i = userService.usernameCheck(username);
-        return i;
+        int count = userService.usernameCheck(username);
+        return count;
     }
 
+    @GetMapping("/getNickname")
+    @ResponseBody
+    public int getnickname(@RequestParam("usernickname") String usernickname) {
+        System.out.println(usernickname);
+        int count = userService.nicknameCheck(usernickname);
+        return  count;
+    }
 
 
 }
