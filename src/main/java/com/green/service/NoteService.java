@@ -17,12 +17,14 @@ public class NoteService {
     
 
 
-    public void insertMsg(NoteVo vo) {
-        msgDaoImpl.insertMsg(vo);
+    public void insertNote(NoteVo vo) {
+        msgDaoImpl.insertNote(vo);
     }
 
     public List<NoteVo> selectRecept(String recept){
         List<NoteVo> vo = msgDaoImpl.selectRecept(recept);
         return vo;
     }
+
+
 }

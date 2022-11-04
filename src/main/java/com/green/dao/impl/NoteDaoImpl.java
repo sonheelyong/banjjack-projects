@@ -14,13 +14,13 @@ public class NoteDaoImpl implements NoteDao {
     private SqlSession sqlSession;
 
     @Override
-    public void insertMsg(NoteVo vo) {
-        sqlSession.insert("Msg.MsgWrite",vo);
+    public void insertNote(NoteVo vo) {
+        sqlSession.insert("Note.insertNote",vo);
     }
 
     @Override
     public List<NoteVo> selectRecept(String recept) {
-        List<NoteVo> vo = sqlSession.selectList("Msg.selectRecept",recept);
+        List<NoteVo> vo = sqlSession.selectList("Note.selectRecept",recept);
         return vo;
     }
 }
