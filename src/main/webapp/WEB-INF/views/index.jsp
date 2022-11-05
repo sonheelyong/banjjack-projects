@@ -20,7 +20,7 @@
     </div>
 
     <div class="indexbox">
-        <img src="/img/dog.jpeg">
+        <img src="/img/dog1.jpg">
         <div class="indexbox-content">
             <h5>내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2</h5>
         </div>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="indexbox">
-        <img src="/img/dog.jpeg">
+        <img src="/img/dog4.jpg">
         <div class="indexbox-content">
             <h5>내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2</h5>
         </div>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="indexbox">
-        <img src="/img/dog.jpeg">
+        <img src="/img/cat2.jpg">
         <div class="indexbox-content">
             <h5>내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2</h5>
         </div>

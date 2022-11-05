@@ -13,7 +13,7 @@
 
 
         		   $.ajax( {
-        			   url  :  '/getrecenote?recept=1234'  ,
+        			   url  :  '/getreceptnote?recept=1234'  ,
         			   data :  {
         				   _id : $('#_id').val() ,
         				   content : $('#content').val(),
@@ -34,7 +34,7 @@
                      var send = result[i].send
                      var time = 1234
 
-                     console.log(send + "i = " + result[i].content)
+                     console.log(send)
 
 
         			   html         += "<tr>";
@@ -42,7 +42,7 @@
         			   html         += '<td style="text-align: center;">' + _id + '</td>';
         			   html         += '<td style="text-align: center; padding-left:30px;">';
         			   html         += '<div class="cc">';
-        			   html         += '<a href ="/readNote">'+ content +'</a>';
+        			   html         += '<a href ="/readNote?id='+_id +'">'+ content +'</a>';
         			   html         += '</div></td>';
         			   html         += '<td style="width:170px; text-align: center;">'+ send +'</td>';
         			   html         += '<td style="width:200px; text-align: center;">'+ time +'</td>';
@@ -52,7 +52,7 @@
                         $('#noteList').html( html );
         		   })
         		   .fail(function(error, textStatus, errorThrown ) {
-        			   conmsole.log ( error );
+        			   console.log ( error );
         			   alert('Error:' + error)
         		   });
 
@@ -102,8 +102,8 @@
                         <!-- 쪽지함 이동 버튼들 -->
                         <ul class="buttons">
                             <li><button onclick="location.href='/SendMessage'">삭제</button></li>
-                            <li><button onclick="location.href='/SendMessage'">보낸 쪽지함</button></li>                     
-                            <li><button onclick="location.href='/WriteMessage'">쪽지 보내기</button></li>
+                            <li><button onclick="location.href='/sendNote?send=1234'">보낸 쪽지함</button></li>
+                            <li><button onclick="location.href='/writeNoteForm'">쪽지 보내기</button></li>
                         </ul>
                     </div>
  

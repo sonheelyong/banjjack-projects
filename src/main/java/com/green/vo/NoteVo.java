@@ -61,7 +61,7 @@ public class NoteVo {
 
     @Override
     public String toString() {
-        return "MsgVo{" +
+        return "NoteVo{" +
                 "_id=" + _id +
                 ", content='" + content + '\'' +
                 ", recept='" + recept + '\'' +

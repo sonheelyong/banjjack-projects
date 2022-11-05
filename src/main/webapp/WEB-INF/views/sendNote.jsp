@@ -13,11 +13,11 @@
 
 
         		   $.ajax( {
-        			   url  :  '/test?recept=1234'  ,
+        			   url  :  '/getsendnote?send=1234'  ,
         			   data :  {
         				   _id : $('#_id').val() ,
         				   content : $('#content').val(),
-        				   send : $('#send').val() ,
+        				   recept : $('#recept').val() ,
         				   time : $('#time').val() ,
         		       },
         		       method   : "GET",
@@ -31,10 +31,10 @@
         			  for(var i = 0; i < result.length; i++ ) {
                      var _id = result[i]._id
                      var content = result[i].content
-                     var send = result[i].send
+                     var recept = result[i].recept
                      var time = 1234
 
-                     console.log(send + "i = " + result[i].content)
+                     console.log(recept + "i = " + result[i].content)
 
 
         			   html         += "<tr>";
@@ -42,9 +42,9 @@
         			   html         += '<td style="text-align: center;">' + _id + '</td>';
         			   html         += '<td style="text-align: center; padding-left:30px;">';
         			   html         += '<div class="cc">';
-        			   html         += '<a href ="/readNote">'+ content +'</a>';
+        			   html         += '<a href ="/readNote?id='+_id +'">'+ content +'</a>';
         			   html         += '</div></td>';
-        			   html         += '<td style="width:170px; text-align: center;">'+ send +'</td>';
+        			   html         += '<td style="width:170px; text-align: center;">'+ recept +'</td>';
         			   html         += '<td style="width:200px; text-align: center;">'+ time +'</td>';
         			   html         += "</tr>";
                       }
@@ -52,7 +52,7 @@
                         $('#noteList').html( html );
         		   })
         		   .fail(function(error, textStatus, errorThrown ) {
-        			   conmsole.log ( error );
+        			   console.log ( error );
         			   alert('Error:' + error)
         		   });
 
@@ -69,7 +69,7 @@
             <div id="main_content">
                 <div id="message_box">
                     <h3>
-                       받은 쪽지함
+                       보낸 쪽지함
                     </h3>
 
 
@@ -88,7 +88,7 @@
 		    <th></th>
 		    <th>번호</th>
 		    <th>내용</th>
-			<th>보낸사람</th>
+			<th>받는사람</th>
 			<th>등록일</th>
 
 		</tr>
@@ -102,8 +102,8 @@
                         <!-- 쪽지함 이동 버튼들 -->
                         <ul class="buttons">
                             <li><button onclick="location.href='/SendMessage'">삭제</button></li>
-                            <li><button onclick="location.href='/SendMessage'">보낸 쪽지함</button></li>
-                            <li><button onclick="location.href='/WriteMessage'">쪽지 보내기</button></li>
+                            <li><button onclick="location.href='/receptNote?recept=1234'">받은 쪽지함</button></li>
+                            <li><button onclick="location.href='/writeNoteForm'">쪽지 보내기</button></li>
                         </ul>
                     </div>
 

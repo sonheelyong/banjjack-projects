@@ -12,19 +12,26 @@ import java.util.List;
 public class NoteService {
 
     @Autowired
-    NoteDaoImpl msgDaoImpl;
-
-    
+    private NoteDaoImpl noteDaoImpl;
 
 
     public void insertNote(NoteVo vo) {
-        msgDaoImpl.insertNote(vo);
+        noteDaoImpl.insertNote(vo);
     }
 
-    public List<NoteVo> selectRecept(String recept){
-        List<NoteVo> vo = msgDaoImpl.selectRecept(recept);
+    public List<NoteVo> selectRecept(String recept) {
+        List<NoteVo> vo = noteDaoImpl.selectRecept(recept);
         return vo;
     }
 
 
+    public List<NoteVo> selectSend(String send) {
+        List<NoteVo> vo = noteDaoImpl.selectSend(send);
+        return vo;
+    }
+
+    public NoteVo selectCont(int _id) {
+        NoteVo vo = noteDaoImpl.selectCont(_id);
+        return vo;
+    }
 }

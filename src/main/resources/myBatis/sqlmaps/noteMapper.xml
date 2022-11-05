@@ -5,6 +5,11 @@
 
 <mapper namespace="Note">
 
+    <insert id="insertNote"
+            parameterType="com.green.vo.NoteVo" useGeneratedKeys="true" keyProperty="_id">
+        INSERT INTO note_tb (content, recept, send) VALUES (#{content}, #{recept}, #{send})
+    </insert>
+
     <select id="selectRecept"
             resultType="com.green.vo.NoteVo">
         SELECT *
@@ -12,9 +17,20 @@
         WHERE recept = #{recept}
     </select>
 
-    <insert id="insertNote"
-            parameterType="com.green.vo.NoteVo" useGeneratedKeys="true" keyProperty="_id">
-        INSERT INTO note_tb (content, recept, send) VALUES (#{content}, #{recept}, #{send})
-    </insert>
+    <select id="selectSend"
+            resultType="com.green.vo.NoteVo">
+        SELECT *
+        FROM note_tb
+        WHERE send = #{send}
+    </select>
+
+    <select id="selectCont"
+            resultType="com.green.vo.NoteVo">
+        SELECT *
+        FROM note_tb
+        WHERE _id = #{_id}
+    </select>
+
+
 
 </mapper>
