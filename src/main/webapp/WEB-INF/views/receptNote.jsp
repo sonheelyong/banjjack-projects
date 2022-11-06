@@ -13,7 +13,7 @@
 
 
         		   $.ajax( {
-        			   url  :  '/test1?recept=1234'  ,
+        			   url  :  '/getreceptnote?recept=1234'  ,
         			   data :  {
         				   _id : $('#_id').val() ,
         				   content : $('#content').val(),
@@ -26,27 +26,33 @@
         		   .done(function( result, textStatus, xhr ) {
         			   console.log( result );
         			   var resultStr = JSON.stringify( result ); // JSOn -> string
-        			   //alert(resultStr);
-        			   var _id       = result[0]._id;
-        			   var time = 1234;
-        			   var content   = result[0].content;
-        			   var send      = result[0].send;
-        			   console.log (_id + " / " + content + " / " + send + " / " + time);
-        			   var html      = "<tr>";
+
+                        var html= "";
+        			  for(var i = 0; i < result.length; i++ ) {
+                     var _id = result[i]._id
+                     var content = result[i].content
+                     var send = result[i].send
+                     var time = 1234
+
+                     console.log(send)
+
+
+        			   html         += "<tr>";
         			   html         += '<td><input type ="checkbox" name = "chk_list"></td>';
         			   html         += '<td style="text-align: center;">' + _id + '</td>';
         			   html         += '<td style="text-align: center; padding-left:30px;">';
         			   html         += '<div class="cc">';
-        			   html         += '<a href ="/readNote">'+ content +'</a>';
+        			   html         += '<a href ="/readNote?id='+_id +'">'+ content +'</a>';
         			   html         += '</div></td>';
-        			   html         += '<td style="width:170px; text-align: center;">'+send+'</td>';
-        			   html         += '<td style="width:200px; text-align: center;">'+time+'</td>';
-        			   html         += '<td style="text-align: center;">' + _id + '</td>';
+        			   html         += '<td style="width:170px; text-align: center;">'+ send +'</td>';
+        			   html         += '<td style="width:200px; text-align: center;">'+ time +'</td>';
         			   html         += "</tr>";
-        			   $('#noteList').html( html );
+                      }
+                      console.log(html);
+                        $('#noteList').html( html );
         		   })
         		   .fail(function(error, textStatus, errorThrown ) {
-        			   conmsole.log ( error );
+        			   console.log ( error );
         			   alert('Error:' + error)
         		   });
 
@@ -65,8 +71,8 @@
                     <h3>
                        받은 쪽지함
                     </h3>
- 
-               
+
+
                     <div>
                            
       <table class="table_box" >
@@ -86,21 +92,18 @@
 			<th>등록일</th>
 				
 		</tr>
-	</thead>
-			
-	<tbody >	    
-		    <div id="noteList">
+	</thead >
+	        <tbody id = "noteList">
 
-		    </div>
-	</tbody>
+	        </tbody>
 
 </table>
 <hr>
                         <!-- 쪽지함 이동 버튼들 -->
                         <ul class="buttons">
                             <li><button onclick="location.href='/SendMessage'">삭제</button></li>
-                            <li><button onclick="location.href='/SendMessage'">보낸 쪽지함</button></li>                     
-                            <li><button onclick="location.href='/WriteMessage'">쪽지 보내기</button></li>
+                            <li><button onclick="location.href='/sendNote?send=1234'">보낸 쪽지함</button></li>
+                            <li><button onclick="location.href='/writeNoteForm'">쪽지 보내기</button></li>
                         </ul>
                     </div>
  
