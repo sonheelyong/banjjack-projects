@@ -19,4 +19,21 @@ public class UserService {
     public int insertUser(UserVo userVo){
         return userDaoImpl.insertUser(userVo);
     }
+
+    public int usernameCheck(String username) {
+        return userDaoImpl.usernameCheck(username);
+    }
+
+    public int nicknameCheck(String usernickname) {
+        return userDaoImpl.nicknameCheck(usernickname);
+    }
+
+    public void insertInfo(UserVo userVo) {
+         userDaoImpl.insertInfo(userVo);
+    }
+
+    public UserVo successLogin(UserVo userVo) {
+        return userDaoImpl.successLogin(userVo);
+    }
 }
+

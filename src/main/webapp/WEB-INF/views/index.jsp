@@ -1,16 +1,16 @@
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> -->
+              pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/resources/css/index.css">
-<meta charset="UTF-8">
-<title>안녕</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <meta charset="UTF-8">
+    <title>안녕2</title>
 </head>
 <body>
 <div class="container">
     <div class="indexbox">
-        <img src="/resources/img/dog.jpeg">
+        <img src="/img/dog.jpeg">
         <div class="indexbox-content">
             <h5>내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2</h5>
         </div>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="indexbox">
-        <img src="/resources/img/dog.jpeg">
+        <img src="/img/dog1.jpg">
         <div class="indexbox-content">
             <h5>내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2</h5>
         </div>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="indexbox">
-        <img src="/resources/img/dog.jpeg">
+        <img src="/img/dog4.jpg">
         <div class="indexbox-content">
             <h5>내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2</h5>
         </div>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="indexbox">
-        <img src="/resources/img/dog.jpeg">
+        <img src="/img/cat2.jpg">
         <div class="indexbox-content">
             <h5>내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2내용2</h5>
         </div>

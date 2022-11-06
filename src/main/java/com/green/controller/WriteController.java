@@ -8,7 +8,7 @@ import java.util.List;
 @Controller
 public class WriteController {
 	
-	@GetMapping("/Write")
+	@GetMapping("/write")
 	public String Write() {
 		return "write";
 	}

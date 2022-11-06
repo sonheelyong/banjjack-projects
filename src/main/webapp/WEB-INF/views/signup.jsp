@@ -1,0 +1,196 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	*     { box-sizing:border-box;  }
+	
+	.sign-upForm { width:600px; margin:0 auto; }
+
+	.sign-upForm input {
+       
+       border:1px solid grey;
+       border-radius:5px;
+       width: 50%;
+       padding: 10px;
+       margin:5px;
+       
+    }
+    
+	div  {
+            text-align: center;
+       }
+    
+    td { width:200px; }
+    
+    #container { width:100% }
+    
+    #form1 { width:100%; }
+
+   
+    input[name="signup"]:hover { background-color:#1E90FF; }
+    input[name="signup"]:active { background-color:#4169E1; }
+	input[name="signup"] { background-color:#87CEFA; border:0px; }
+    
+    input:focus { border-color:#0000CD; outline:none;}
+    
+    hr          { width:400px; margin-bottom:70px; }
+    
+
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script>
+    window.onload = function() {
+        const form = document.querySelector('form');
+        // 회원가입 유효성 검사
+        form.addEventListener('submit', function(e) {
+            if(username.value == '') {
+                checkError.innerHTML = '아이디를 입력하세요';
+                username.focus();
+                e.preventDefault();
+
+            } else if (userpassword.value == '') {
+                checkError.innerHTML = '비밀번호를 입력하세요';
+                userpassword.focus();
+                e.preventDefault();
+
+            } else if (repasswd.value == '') {
+                checkError.innerHTML = '비밀번호 확인을 입력하세요';
+                repasswd.focus();
+                e.preventDefault();
+
+            } else if (usernickname.value == '') {
+                checkError.innerHTML = '닉네임을 입력하세요';
+                usernickname.focus();
+                e.preventDefault();
+            }
+            return true;
+        });
+
+
+        //id에 길이가 1이상이고
+        //비활성화 되어 있다면
+        //id체크로직을 한번 돌린다
+
+        $('#username').on('change', function() {
+        const username = document.getElementById('username').value.length;
+        if(username >= 2) {
+            idCheck(document.getElementById('username').value)
+        } else {
+             $('#unameCheck').text('아이디는 2자 이상 20자 이내로 입력해주세요');
+        }
+        });
+
+        $('#usernickname').on('change', function() {
+        const usernickname = document.getElementById('usernickname').value.length;
+        if(usernickname >= 2) {
+           nicknameCheck(document.getElementById('usernickname').value)
+        } else {
+            $('#usernickname').text('아이디는 2자 이상 15자 이내로 입력해주세요');
+        }
+        });
+
+        //const pwVaildation       = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[$@$!%*?&*-])[A-Za-z\d$@$!%*?&*-]{8,21}$/g;
+
+
+} // window.onload end
+
+	// 아이디 중복확인 ajax
+    function idCheck(username) {
+        //아이디체크 ajax 해보자 아장자ㅏ!
+        $.ajax({
+            url: '/getUser?username=' + username, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            method: 'GET'                        // HTTP 요청 메소드(GET, POST 등)
+        })
+        // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
+        .done(function(count) {
+            if(count==0){
+                const nameVaildation = /^[a-z0-9_-]{2,21}$/g;   // 아이디: 영문과 숫자 조합으로만
+                if(nameVaildation.test(username.trim())) {
+                    $('#unameCheck').text('사용가능한 아이디입니다.');
+                } else {
+                    $('#unameCheck').text('아이디는 영문 소문자와 숫자의 조합으로 입력해주세요');
+                }
+            }else{
+                $('#unameCheck').text('이미 존재하는 아이디입니다.');
+            }
+        })
+        // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+        .fail(function(xhr, status, errorThrown) {
+            $('#unicknameCheck').text('입력이 실패하였습니다. 다시 시도해주세요.');
+        });
+    }
+	
+    // 닉네임 중복확인 ajax
+    function nicknameCheck(usernickname) {
+        $.ajax({
+            url: '/getNickname?usernickname=' + usernickname,
+            method: 'GET'
+        })
+        .done(function(count) {
+            console.log(count);
+            if(count==0) {
+                const nicknameVaildation = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/g;
+                if(nicknameVaildation.test(usernickname.trim())) {
+                    $('#unicknameCheck').text('사용가능한 닉네임입니다.');
+                } else {
+                    $('#unicknameCheck').text('닉네임은 한글과 영문, 숫자의 조합으로 입력해주세요.');
+                }
+            } else {
+                $('#unicknameCheck').text('이미 존재하는 닉네임입니다.');
+            }
+        })
+        .fail(function(xhr, status, errorThrown) {
+            $('#unicknameCheck').text('입력이 실패하였습니다. 다시 시도해주세요.');
+        });
+    }
+
+</script>
+</head>
+<body>
+	<div class="sign-upForm">
+	<h2>회원가입</h2>
+	<hr />
+		<form action="/signup/register" method="POST" id="form1">
+		  <table id="container">
+		  	<tr>
+                <td>
+                    <input type="text" id="username" placeholder="아이디" maxlength="20"><br>
+                    <span id="unameCheck"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" id="userpassword" placeholder="비밀번호" maxlength="20"><br>
+                    <span id="pwCheck"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" id="repasswd" placeholder="비밀번호 확인" maxlength="20"><br>
+                    <span id="re_pwCheck"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="usernickname" placeholder="닉네임" maxlength="15"><br>
+                    <span id="unicknameCheck"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><span id="checkError"></span></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="signup" value="가입하기"/></td>
+            </tr>
+		  </table>
+		</form>
+
+	</div>
+</body>
+</html>

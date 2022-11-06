@@ -8,19 +8,31 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("msgDao")
+@Repository("NoteDao")
 public class NoteDaoImpl implements NoteDao {
     @Autowired
     private SqlSession sqlSession;
 
     @Override
-    public void insertMsg(NoteVo vo) {
-        sqlSession.insert("Msg.MsgWrite",vo);
+    public void insertNote(NoteVo vo) {
+        sqlSession.insert("Note.insertNote",vo);
     }
 
     @Override
     public List<NoteVo> selectRecept(String recept) {
-        List<NoteVo> vo = sqlSession.selectList("Msg.selectRecept",recept);
+        List<NoteVo> vo = sqlSession.selectList("Note.selectRecept",recept);
+        return vo;
+    }
+
+    @Override
+    public List<NoteVo> selectSend(String send) {
+        List<NoteVo> vo = sqlSession.selectList("Note.selectSend",send);
+        return vo;
+    }
+
+    @Override
+    public NoteVo selectCont(int _id) {
+        NoteVo vo = sqlSession.selectOne("Note.selectCont",_id);
         return vo;
     }
 }

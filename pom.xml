@@ -7,7 +7,10 @@
     <groupId>com.green</groupId>
     <artifactId>green</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <dependencies>
+
+
         <!-- Spring  라이브러리 -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -71,6 +74,7 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.12.0</version>
+
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
         <dependency>
@@ -79,19 +83,11 @@
             <version>1.1.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
 
 
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
+
+
+
 
         <!-- 파일업로드 commons-io/commons-io -->
         <dependency>
@@ -120,5 +116,6 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 
 </project>
