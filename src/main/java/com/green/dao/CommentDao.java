@@ -13,6 +13,6 @@ public interface CommentDao {
 
    public void commentDelete(HashMap<String, Object> map);
 
-   public void commentWrite(CommentVo commentVo);
+   public void commentWrite(HashMap<String, Object> map);
 
 }

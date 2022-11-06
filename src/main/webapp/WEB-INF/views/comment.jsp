@@ -25,9 +25,32 @@
             textarea { width:600px; resize:none; }
             div.regBtn { float:right;}
         </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $.ajaxSetup({ type: "POST",
+            async:true,
+            dataType:"json",
+            error:function(xhr) {
+                console.log("error html=" + xhr.statusText);
+                }
+        }) ;
+
+        $(function() {
+            $("#commentWrite").on("click", function() {
+                $.ajax({
+                    url:"/bbs/commentWrite.bbs",
+                    data:{
+                        commentContent:$("#commentContent").val(),
 
 
+                    }
+                })
+            })
+        })
+
+
+
+    </script>
     </head>
     <body> 
         <div class="commentCount"> 댓글 <span id = "count">0</span></div>

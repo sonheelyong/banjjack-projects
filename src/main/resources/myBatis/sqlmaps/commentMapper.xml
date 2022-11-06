@@ -16,6 +16,8 @@
             comment_tb
         WHERE
             content_id
+        ORDER BY
+            _id DESC
 
     </select>
 

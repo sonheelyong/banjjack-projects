@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void commentWrite(CommentVo commentVo) {
-        commentDao.commentWrite( commentVo );
+    public void commentWrite(HashMap<String, Object> map) {
+        commentDao.commentWrite( map );
     }
 }

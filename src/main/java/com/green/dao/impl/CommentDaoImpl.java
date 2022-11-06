@@ -31,8 +31,8 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public void commentWrite(CommentVo commentVo) {
-        sqlSession.insert("comment.commentWrite", commentVo);
+    public void commentWrite(HashMap<String, Object> map) {
+        sqlSession.insert("comment.commentWrite", map);
     }
 
 

@@ -5,6 +5,7 @@
 
 <mapper namespace="Comment">
     <select id="commentList"
+            parameterType="hashmap"
             resultType="com.green.vo.CommentVo">
         SELECT
             _id,
@@ -15,17 +16,17 @@
             comment_tb
         WHERE
             content_id
+        ORDER BY
+            _id DESC
 
     </select>
 
-    <insert id="commentWrite"
-            parameterType="com.green.vo.CommentVo">
+    <insert id="commentWrite">
         INSERT INTO  comment_tb( _id, content_id, username, , content, time)
         VALUES (#{_id}, #{content}, #{username}, #{content_id},  #{time})
     </insert>
 
-    <insert id="commentUpdate"
-            parameterType="com.green.vo.CommentVo">
+    <insert id="commentUpdate">
         UPDATE comment_tb
         SET content, #{content}
         Where    username = #{username}

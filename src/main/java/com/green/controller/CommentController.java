@@ -29,20 +29,12 @@ public class CommentController {
 		}
 		return commentList;
 	}
-//	@PostMapping ("comment/commentWrite.do")
-//
-//		public List<JSONObject> commentWrite(CommentVo commentVo) {
-//		List<JSONObject> commentInsert = new ArrayList<>();
-//		for (CommentVo cl : commentService.commentWrite(commentVo)) {
-//			JSONObject obj = new JSONObject();
-//			obj.put("contentid", cl.getContent_id());
-//			obj.put("commentid", cl.get_id());
-//			obj.put("name", cl.getUsername());
-//			obj.put("commentContent", cl.getContent());
-//			obj.put("time", cl.getTime());
-//			commentInsert.add(obj);
-//		}
-//			return commentInsert;
-//	}
+	@PostMapping ("comment/commentWrite.do")
+	public void  commentWrite(HashMap<String, Object> map) {
+
+		String userName = "Testing"; //map.get(userName);
+
+		commentService.commentWrite(map);
+	}
 }
 
