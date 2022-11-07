@@ -5,6 +5,7 @@ import com.green.service.CommentService;
 import com.green.vo.CommentVo;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 public class CommentController {
 
 	@Autowired
@@ -66,6 +67,11 @@ public class CommentController {
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("msg", "댓글을 삭제했습니다!");
 		return map;
+	}
+
+	@GetMapping("/comment")
+	public String getComment(){
+		return "comment";
 	}
 }
 
