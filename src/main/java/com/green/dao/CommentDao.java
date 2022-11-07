@@ -9,10 +9,10 @@ public interface CommentDao {
 
    public List<CommentVo> getCommentList(int content_id);
 
-   public void commentUpdate(HashMap<String, Object> map);
+   public void commentUpdate(CommentVo commentVo);
 
-   public void commentDelete(HashMap<String, Object> map);
+   public void commentDelete(CommentVo commentVo);
 
-   public void commentWrite(HashMap<String, Object> map);
+   public void commentWrite(CommentVo commentVo);
 
 }

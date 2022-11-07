@@ -5,7 +5,7 @@
 
 <mapper namespace="Comment">
     <select id="commentList"
-            parameterType="hashmap"
+            parameterType="Integer"
             resultType="com.green.vo.CommentVo">
         SELECT
             _id,
@@ -15,9 +15,7 @@
         FROM
             comment_tb
         WHERE
-            content_id
-        ORDER BY
-            _id DESC
+            content_id = #{content_id}
 
     </select>
 

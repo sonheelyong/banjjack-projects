@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -27,7 +28,10 @@
         </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $.ajaxSetup({ type: "POST",
+        <%--var params={"curPage":1, "rowSizePerPage":10--%>
+        <%--, "reContent_id":${content_id}};--%>
+        $.ajaxSetup({
+            type: "POST",
             async:true,
             dataType:"json",
             error:function(xhr) {
@@ -35,18 +39,80 @@
                 }
         }) ;
 
-        $(function() {
-            $("#commentWrite").on("click", function() {
-                $.ajax({
-                    url:"/bbs/commentWrite.bbs",
-                    data:{
-                        commentContent:$("#commentContent").val(),
+        $.ajax({
+            url:"/comment/commentList"
+            // data : params
+            , success: function(data){
+                console.log(data);
 
+                $.each(data.data, function(index, element) {
+                    var str="";
+                    str=str
+                        +'<div class="commentBox">'+ +'</div>'
+                        +'<div class="commentIcon">'+ +'</div>'
+                        +'<span class="comWirter">' +element.username + '</span>'
+                        +'<span class="commentdate">'+element.time + '</span>'
+                        +'<div class="commentText">' +element.content + '</div>'
+                    <%--if(element.username=="${}"){--%>
+                    <%--    str=str+   '<button name="commentEdit" type="button" class="commentEdit" >수정</button>'--%>
+                    <%--        +  '<button name="commentDel" type="button" class="commentDel" >삭제</button>';--%>
+                    <%--}--%>
+                    str=str+'</div>'
+                        +'</div>';
+                    $('#commentBigBox').append(str);
 
-                    }
                 })
-            })
-        })
+            }
+        });
+
+
+
+
+        $(function() {
+            $("#commentWrite").on("click", function(e) {
+                e.preventDefault();
+                $form=$("#comInputForm");
+                $.ajax({
+                    url:"/comment/commentWrite"
+                    ,data : $form.serialize()
+                    ,success: function(data){
+                        console.log(data);
+                        $form.find("textarea[name='comInput']").val('');
+                        // $("#id_reply_list_area").html('');
+                        //  params.curPage=1;
+                        // fn_reply_list();
+                    }
+                    ,error : function(req,st,err){
+                        if(req.status==401){
+                            location.href="<c:url value='/login'  />";
+                        }
+                    }
+                });
+            });
+            <%--$("#commentEdit").on("click", function() {--%>
+            <%--    $.ajax({--%>
+            <%--        url:"/comment/commentEdit",--%>
+            <%--        data:{--%>
+            <%--            commentContent:$("commentContent").val(),--%>
+            <%--            content_id:"${content.content_io}"--%>
+            <%--        },--%>
+            <%--        beforeSend:function() {--%>
+            <%--            console.log("전송 전");--%>
+            <%--        },--%>
+            <%--        complete:function() {--%>
+            <%--            console.log("전송 후");--%>
+            <%--        },--%>
+            <%--        success:function(data) {--%>
+            <%--            if(data.reult ==1) {--%>
+            <%--                console.log("댓글 수정 완료");--%>
+            <%--                $("#commentContent").val("");--%>
+            <%--            }--%>
+            <%--        }--%>
+            <%--    })--%>
+            <%--})--%>
+
+        });
+
 
 
 
@@ -64,7 +130,7 @@
                 </div>
                 <div class="commentBox">
                     <span class="comWriter"> 
-                            <input type="text" id="comWriter" placeholder= userId name="comWriter"> 
+                            <input type="text" id="comWriter" name="comWriter" >
                     </span>
                         <!-- 버튼은 등록자 본인만 -->
                     <span class="commentDelBtn">
@@ -73,7 +139,10 @@
                     <span class="commentEditBtn">
                         <button id="commentEdit"> 수정 </button>
                     </span>
-                    <div class="commentText"> 내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.
+                    <span class="commentdate">
+                        <input type="text" id="commentdate" name="commentdate">
+                    </span>
+                    <div class="commentText">
                         <br>
                     </div>
                 </div>
@@ -84,15 +153,18 @@
 
         <!--댓글 입력부 -->
 
-    <div class="commentInputBox">
-        <textarea class="commentInput" id="comInput" cols="80" rows="3" name="comInput" ></textarea>
-        <div class="countNum">
-            ( 0/ 300)
+        <div class="commentInputBox">
+            <form action="/comment/commentWrite" id="comInputForm" method="POST" name="comInputForm">
+                <textarea class="commentInput" id="comInput" cols="80" rows="3" name="comInput" >${ vo.cont }
+                </textarea>
+                <div class="countNum">
+                    ( 0/ 300)
+                </div>
+                <div class="regBtn">
+                    <button id="commentWrite"> 등록</button>
+                </div>
+            </form>
         </div>
-        <div class="regBtn">
-            <button id="commentRegist"> 등록</button>
-        </div>
-    </div>
 
 
     <script>

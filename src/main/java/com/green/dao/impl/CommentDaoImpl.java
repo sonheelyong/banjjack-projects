@@ -21,18 +21,18 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public void commentUpdate(HashMap<String, Object> map) {
-        sqlSession.update("Comment.commentUpdate", map);
+    public void commentUpdate(CommentVo commentVo) {
+        sqlSession.update("Comment.commentUpdate", commentVo);
     }
 
     @Override
-    public void commentDelete(HashMap<String, Object> map) {
+    public void commentDelete(CommentVo commentVo) {
 
     }
 
     @Override
-    public void commentWrite(HashMap<String, Object> map) {
-        sqlSession.insert("comment.commentWrite", map);
+    public void commentWrite(CommentVo commentVo) {
+        sqlSession.insert("comment.commentWrite", commentVo);
     }
 
 

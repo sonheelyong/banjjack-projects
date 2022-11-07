@@ -19,6 +19,9 @@ public class CommentVo {
         this.username = username;
     }
 
+    public CommentVo() {
+    }
+
     public int get_id() { return _id;  }
 
     public void set_id(int _id) {
