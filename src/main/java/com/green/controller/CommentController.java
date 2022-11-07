@@ -34,6 +34,7 @@ public class CommentController {
 		List<JSONObject> commentList = new ArrayList<>();
 		for (CommentVo cl : commentService.getCommentList(content_id)) {
 			JSONObject obj = new JSONObject();
+			obj.put("_id", cl.get_id());
 			obj.put("name", cl.getUsername());
 			obj.put("content", cl.getContent());
 			obj.put("time", cl.getTime());
@@ -43,30 +44,28 @@ public class CommentController {
 		return commentList;
 	}
 
-	@PostMapping("comment/commenWrite")
-	public Map<String, Object> commentWrite(CommentVo commentVo) {
+	@GetMapping("comment/writecomment")
+	public void commentWrite(CommentVo commentVo) {
 
-
+		System.out.println(commentVo);
 		commentService.commentWrite(commentVo);
-		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("msg", "댓글을 등록했습니다!");
-		return map;
 	}
-	@PostMapping("comment/commentUpdate")
-	public Map<String, Object> commentUpdate(CommentVo commentVo){
+	@GetMapping("comment/updatecomment")
+	public void commentUpdate(@RequestParam int _id, String username){
+		System.out.println(_id);
+		System.out.println(username);
+		commentService.commentUpdate(_id, username);
+		System.out.println("수정완료");
 
-		commentService.commentUpdate(commentVo);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("msg", "댓글을 수정했습니다!");
-		return map;
 	}
-	@PostMapping("comment/commentDelete")
-	public Map<String, Object> commentDelete(CommentVo commentVo){
+	@GetMapping("comment/deletecomment")
+	@ResponseBody
+	public void commentDelete(@RequestParam int _id){
 
-		commentService.commentDelete(commentVo);
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("msg", "댓글을 삭제했습니다!");
-		return map;
+
+		commentService.commentDelete(_id);
+		System.out.println("삭제완료");
+
 	}
 
 	@GetMapping("/comment")

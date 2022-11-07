@@ -92,15 +92,45 @@
                 }
             });
         }
+        //쓰기
         $.ajax({
-            url:"/comment/wirtecomment",
-            type:"get",
+            url: "/comment/writecomment",
+            type: "get",
+            error: function (xhr) {
+                console.log("error html = " + xhr.statusText);
+
+            },
             success: function (data) {
+                console.log(data);
+                fnCommentList();
+            }
+        });
+        //삭제
+        $.ajax({
+            url: "comment/deletecomment",
+            type: "get",
+            error: function (xhr) {
+                console.log("error html = " + xhr.statusText);
 
+            },
+            success: function (data) {
+                console.log(data);
+                fnCommentList();
+            }
+        });
+        //수정
+        $.ajax({
+            url: "comment/updatecomment",
+            type: "get",
+            error: function (xhr) {
+                console.log("error html = " + xhr.statusText);
 
-
-
-        }
+            },
+            success: function (data) {
+                console.log(data);
+                fnCommentList();
+            }
+        });
 
 
 
@@ -119,7 +149,7 @@
                 </div>
                 <div class="commentBox">
                     <span class="comWriter">
-                            <input type="text" id="comWriter" name="comWriter" >
+                            <input type="text" id="commentWriter" name="comWriter" >
                     </span>
                         <!-- 버튼은 등록자 본인만 -->
                     <span class="commentDelBtn">
@@ -147,7 +177,10 @@
 
         <div class="commentInputBox">
             <form action="/comment/commentWrite" id="comInputForm" method="POST" name="comInputForm">
-                <textarea class="commentInput" id="comInput" cols="80" rows="3" name="comInput" >
+
+                <input type="hidden" name="username" id="comWriter" value="12345">
+                <input type="hidden" name="content_id" id="contentIds" value="2">
+                <textarea class="commentInput" id="comInput" cols="80" rows="3" name="comInput" value="${vo.content}" >
                 </textarea>
                 <div class="countNum">
                     ( 0/ 300)

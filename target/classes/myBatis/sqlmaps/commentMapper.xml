@@ -20,21 +20,22 @@
     </select>
 
     <insert id="commentWrite">
-        INSERT INTO  comment_tb( _id, content_id, username, , content, time)
-        VALUES (#{_id}, #{content}, #{username}, #{content_id},  #{time})
+        INSERT INTO  comment_tb(content, username, content_id, time)
+        VALUES (#{content}, #{username}, #{content_id}, #{time})
     </insert>
 
     <insert id="commentUpdate">
         UPDATE comment_tb
-        SET content, #{content}
-        Where    username = #{username}
-             AND _id      = #{_id}
+        SET content = #{content}
+        where     _id      = #{_id}
+        and      username  = #{username}
     </insert>
 
 
     <delete id="commentDelete">
         DELETE FROM comment_tb
         WHERE _id  = #{_id}
+        AND   username= #{username}
 
     </delete>
 
