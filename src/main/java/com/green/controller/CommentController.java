@@ -33,23 +33,21 @@ public class CommentController {
 		for (CommentVo cl : commentService.getCommentList(content_id)) {
 			JSONObject obj = new JSONObject();
 			obj.put("name", cl.getUsername());
+			obj.put("_id", cl.get_id());
 			obj.put("content", cl.getContent());
 			obj.put("time", cl.getTime());
 			commentList.add(obj);
 
 		}
-		System.out.println(content_id);
 		return commentList;
 	}
 
 	@PostMapping("comment/writeComment")
 	@ResponseBody
 	public void writeComment(CommentVo commentVo) {
-//		HttpServletRequest request = new HttpServletRequest();
-//		commentVo.setUsername(request.getParameter("username"));
-		System.out.println("vo"+commentVo);
+		System.out.println("vO"+ commentVo);
 		commentService.writeComment(commentVo);
-
+//		return "comment";
 	}
 	@PostMapping("comment/updatecomment")
 	@ResponseBody
@@ -66,7 +64,7 @@ public class CommentController {
 		return null;
 	}
 	@PostMapping("comment/deletecomment")
-	@ResponseBody
+
 	public String commentDelete(@RequestParam int _id){
 
 		System.out.println(_id);
