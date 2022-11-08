@@ -3,11 +3,13 @@ package com.green.controller;
 import com.green.dao.CommentDao;
 import com.green.service.CommentService;
 import com.green.vo.CommentVo;
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,30 +45,38 @@ public class CommentController {
 		return commentList;
 	}
 
-	@PostMapping("comment/commenWrite")
-	public Map<String, Object> commentWrite(CommentVo commentVo) {
+	@GetMapping("comment/writecomment")
+	@ResponseBody
+	public String commentWrite(CommentVo commentVo) {
 
 
 		commentService.commentWrite(commentVo);
-		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("msg", "댓글을 등록했습니다!");
-		return map;
+		
+		return null;
 	}
-	@PostMapping("comment/commentUpdate")
-	public Map<String, Object> commentUpdate(CommentVo commentVo){
+	@GetMapping("comment/updatecomment")
+	@ResponseBody
+	public String commentUpdate(@RequestParam int _id, String content, String username){
+		System.out.println(_id);
+		System.out.println(content);
+		System.out.println(username);
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("_id", _id);
+		map.put("content", content);
+		map.put("username", username);
+		commentService.commentUpdate(map);
 
-		commentService.commentUpdate(commentVo);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("msg", "댓글을 수정했습니다!");
-		return map;
+		return null;
 	}
-	@PostMapping("comment/commentDelete")
-	public Map<String, Object> commentDelete(CommentVo commentVo){
+	@GetMapping("comment/deletecomment")
+	@ResponseBody
+	public String commentDelete(@RequestParam int _id){
 
-		commentService.commentDelete(commentVo);
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("msg", "댓글을 삭제했습니다!");
-		return map;
+		System.out.println(_id);
+
+		commentService.commentDelete(_id);
+
+		return null;
 	}
 
 	@GetMapping("/comment")

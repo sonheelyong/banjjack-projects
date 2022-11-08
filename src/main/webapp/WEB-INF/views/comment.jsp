@@ -13,7 +13,7 @@
             
         <style>
             div.commentListBox { width:600px; height: auto ; }
-            div.commentBigBox { display: flex; padding-bottom: 20px; display: inline-block;}
+            div.commentBigBox { padding-bottom: 20px; display: inline-block;}
             div.commentIcon { float:left; width:50px; position : relative ;
                              margin-top: auto ; margin-bottom: auto; margin-left:1px ;
                              text-align: center;}
@@ -93,16 +93,40 @@
             });
         }
         $.ajax({
-            url:"/comment/wirtecomment",
-            type:"get",
+            url: "/comment/writecomment",
+            type: "get",
+            error: function (xhr) {
+                console.log("error html = " + xhr.statusText);
+
+            },
             success: function (data) {
+                console.log(data);
 
+            }
+        });
+        $.ajax({
+            url: "/comment/deletecomment",
+            type: "get",
+            error: function (xhr) {
+                console.log("error html = " + xhr.statusText);
 
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
+        $.ajax({
+            url: "/comment/updatecomment",
+            type: "get",
+            error: function (xhr) {
+                console.log("error html = " + xhr.statusText);
 
+            },
+            success: function (data) {
+                console.log(data);
 
-        }
-
-
+            }
+        });
 
     </script>
 
