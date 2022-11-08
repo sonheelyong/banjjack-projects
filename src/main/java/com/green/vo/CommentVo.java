@@ -1,5 +1,8 @@
 package com.green.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class CommentVo {
     private int _id;
     private int content_id;
@@ -14,6 +17,9 @@ public class CommentVo {
         this.content = content;
         this.time = time;
         this.username = username;
+    }
+
+    public CommentVo() {
     }
 
     public int get_id() { return _id;  }

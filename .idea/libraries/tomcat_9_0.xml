@@ -7,7 +7,6 @@
     <SOURCES>
       <root url="file://$PROJECT_DIR$/../../../../../tomcat-9.0.67/webapps/docs/appdev/sample/src" />
       <root url="file://$PROJECT_DIR$/../../../../../tomcat-9.0.67/webapps/examples/WEB-INF/classes" />
-      <root url="file://$PROJECT_DIR$/../../../../../tomcat-9.0.67/work/Catalina/localhost/ROOT" />
     </SOURCES>
   </library>
 </component>

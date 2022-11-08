@@ -1,18 +1,31 @@
 package com.green.service;
 
+import com.green.dao.CommentDao;
 import com.green.vo.CommentVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public interface CommentService {
+@Service("CommentService")
+public class CommentService {
 
-    public List<CommentVo> getCommentList(int content_id );
+    @Autowired
+    private CommentDao commentDao;
 
-    public void commentUpdate(HashMap<String, Object> map) ;
+    public List<CommentVo> getCommentList(int content_id) {
+        List<CommentVo> commentList = commentDao.getCommentList(content_id);
+        return     commentList;
+    }
+    public void commentUpdate(Map<String, Object> map) {
 
-    public void commentDelete(HashMap<String, Object> map) ;
-
-    public void commentWrite(CommentVo commentVo) ;
-
+        commentDao.commentUpdate(map);
+    }
+    public void commentDelete(int _id) {
+        commentDao.commentDelete(_id);
+    }
+    public void commentWrite(CommentVo commentVo) {
+        commentDao.commentWrite( commentVo );
+    }
 }
