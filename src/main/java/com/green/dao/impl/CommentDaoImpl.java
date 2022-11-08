@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository("CommentDao")
 public class CommentDaoImpl implements CommentDao {
@@ -20,19 +21,21 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public void commentUpdate(int _id, String username) {
-        sqlSession.update("Comment.commentUpdate", _id);
+    public void commentUpdate(Map<String, Object> map) {
+        sqlSession.update("Comment.commentUpdate", map);
     }
 
     @Override
     public void commentDelete(int _id) {
         sqlSession.delete("Comment.commentDelete", _id);
+
     }
 
     @Override
-    public void commentWrite(CommentVo commentVo) {
-        sqlSession.insert("Comment.commentWrite", commentVo);
+    public void writeComment(CommentVo commentVo) {
+        sqlSession.insert("Comment.writeComment", commentVo);
     }
+
 
 
 }

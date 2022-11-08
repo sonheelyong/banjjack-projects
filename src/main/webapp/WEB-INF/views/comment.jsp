@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%--<% String username = request.getParameter("username"); %>--%>
+<%--<% String content_id = request.getParameter("content_id"); %>--%>
 
 <!DOCTYPE html>
 
@@ -13,7 +15,7 @@
             
         <style>
             div.commentListBox { width:600px; height: auto ; }
-            div.commentBigBox { display: flex; padding-bottom: 20px; display: inline-block;}
+            div.commentBigBox { padding-bottom: 20px; display: inline-block;}
             div.commentIcon { float:left; width:50px; position : relative ;
                              margin-top: auto ; margin-bottom: auto; margin-left:1px ;
                              text-align: center;}
@@ -24,6 +26,7 @@
             span.comWriter > input { width:100px ; border:none; font-weight: 600; font-size: large;}
             div.commentText { width:540px; margin-top:2px;}
             div.commentInputBox{width:600px; margin-top:30px;}
+            span.commentDate > input { border:none;}
             textarea { width:600px; resize:none; }
             div.regBtn { float:right;}
         </style>
@@ -34,7 +37,7 @@
         }
         function fnCommentList() {
             $.ajax({
-                url: "/comment/commentList?content_id=1",
+                url: "/comment/commentList",
                 type: "get",
                 error:function(xhr){
                     console.log("error html = " + xhr.statusText);
@@ -65,8 +68,8 @@
                             +"<span class=\"commentEditBtn\">"
                         +"<button> 수정 </button>"
                     +"</span>"
-                            +"<span class=\"commentdate\">"
-                        +"<input type=\"text\" name=\"commentdate\">"
+                            +"<span class=\"commentDate\">"
+                        +"<input type=\"text\" name=\"commentDate\">"
                     +"</span>"
                             +"<div class=\"commentText\">"
                                 +element.content
@@ -92,47 +95,25 @@
                 }
             });
         }
-        //쓰기
-        $.ajax({
-            url: "/comment/writecomment",
-            type: "get",
-            error: function (xhr) {
-                console.log("error html = " + xhr.statusText);
+        //등록버튼
 
-            },
-            success: function (data) {
-                console.log(data);
-                fnCommentList();
-            }
+        $("#commentDel").on("click", function() {
+
         });
-        //삭제
-        $.ajax({
-            url: "comment/deletecomment",
-            type: "get",
-            error: function (xhr) {
-                console.log("error html = " + xhr.statusText);
+        $("#commentEdit").on("click", function() {
+            $.ajax({
+                url: "/comment/updatecomment",
+                type: "post",
+                error: function (xhr) {
+                    console.log("error html = " + xhr.statusText);
 
-            },
-            success: function (data) {
-                console.log(data);
-                fnCommentList();
-            }
+                },
+                success: function (data) {
+                    console.log(data);
+
+                }
+            });
         });
-        //수정
-        $.ajax({
-            url: "comment/updatecomment",
-            type: "get",
-            error: function (xhr) {
-                console.log("error html = " + xhr.statusText);
-
-            },
-            success: function (data) {
-                console.log(data);
-                fnCommentList();
-            }
-        });
-
-
 
     </script>
 
@@ -141,6 +122,7 @@
         <div class="commentCount"> 댓글 <span id = "count">0</span></div>
     <!--댓글 리스트 -->
         <div class="commentListBox" id="commentListBox">
+            <input type="hidden" name="content_id" value= "1" >
             <div class="commentBigBox" id="commentBigBox">
                 <div class="commentIcon">
                     <span class="material-icons-outlined">
@@ -149,7 +131,7 @@
                 </div>
                 <div class="commentBox">
                     <span class="comWriter">
-                            <input type="text" id="commentWriter" name="comWriter" >
+                            <input type="text" id="comWriter" name="comWriter" >
                     </span>
                         <!-- 버튼은 등록자 본인만 -->
                     <span class="commentDelBtn">
@@ -158,11 +140,11 @@
                     <span class="commentEditBtn">
                         <button id="commentEdit"> 수정 </button>
                     </span>
-                    <span class="commentdate">
-                        <input type="text" id="commentdate" name="commentdate">
+                    <span class="commentDate">
+                        <input type="text" name="commentDate">
                     </span>
                     <div class="commentText">
-                        용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘플입니다.내용: 샘
+
                         <br>
                     </div>
                 </div>
@@ -176,18 +158,18 @@
         <!--댓글 입력부 -->
 
         <div class="commentInputBox">
-            <form action="/comment/commentWrite" id="comInputForm" method="POST" name="comInputForm">
-
-                <input type="hidden" name="username" id="comWriter" value="12345">
-                <input type="hidden" name="content_id" id="contentIds" value="2">
-                <textarea class="commentInput" id="comInput" cols="80" rows="3" name="comInput" value="${vo.content}" >
-                </textarea>
-                <div class="countNum">
-                    ( 0/ 300)
-                </div>
-                <div class="regBtn">
-                    <button id="commentWrite"> 등록</button>
-                </div>
+            <form  action="/comment/writeComment" id="writecom1" method="post" >
+            <input type="hidden" name="username" value="1234">
+            <input type="hidden" name="content_id" value="1234">
+            <input type="hidden" name="time" value="2022-11-08 13:09:02">
+            <textarea class="commentInput" name="content" cols="80" rows="3" >
+            </textarea>
+            <div class="countNum">
+                ( 0/ 300)
+            </div>
+            <div class="regBtn">
+                <input type="submit"value="등록">
+            </div>
             </form>
         </div>
 
@@ -203,7 +185,33 @@
                 alert("300자가 초과되었습니다")
                 }
             });
+        window.onload = function(){
+            var form1El = document.getElementById('writecom1');
+            form1El.addEventListener('submit', function(e) {
+                 // const  comusername = document.querySelector('[name=username]');
+                 // const  comcontent = document.querySelector('[name=content]');
+                 // const  comcontent_id = document.querySelector('[name=content_id]');
+                 // const  comtime = document.querySelector('[name=time]');
+            // console.log(form1El);
+                // const $form = $(this).closest('#commentWriteForm');
+                // var CWdata = $form.serialize();
 
+                // $.ajax({
+                //     url: "comment/writeComment",
+                //     type: "get",
+                //
+                //     error: function (xhr) {
+                //         alert("실패");
+                //         console.log("error html = " + xhr.statusText);
+                //         console.log("error");
+                //     },
+                //     success: function (data) {
+                //         alert("성공");
+                //         console.log("data"+data);
+                //     }
+                // });
+            });
+        }
     </script>
 
     </body>
