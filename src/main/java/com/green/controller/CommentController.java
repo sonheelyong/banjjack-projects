@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,12 +28,7 @@ public class CommentController {
 	@GetMapping("comment/commentList")
 	@ResponseBody
 	public List<JSONObject> getCommentList(@RequestParam int content_id) {
-//		System.out.println(content_id);
-//		List<CommentVo> commentList = new ArrayList<>();
-//		for(CommentVo cv : commentDao.getCommentList(content_id)){
-//			commentList.add(cv);
-//		}
-//
+
 		List<JSONObject> commentList = new ArrayList<>();
 		for (CommentVo cl : commentService.getCommentList(content_id)) {
 			JSONObject obj = new JSONObject();
@@ -42,19 +38,20 @@ public class CommentController {
 			commentList.add(obj);
 
 		}
+		System.out.println(content_id);
 		return commentList;
 	}
 
-	@GetMapping("comment/writecomment")
+	@PostMapping("comment/writeComment")
 	@ResponseBody
-	public String commentWrite(CommentVo commentVo) {
+	public void writeComment(CommentVo commentVo) {
+//		HttpServletRequest request = new HttpServletRequest();
+//		commentVo.setUsername(request.getParameter("username"));
+		System.out.println("vo"+commentVo);
+		commentService.writeComment(commentVo);
 
-
-		commentService.commentWrite(commentVo);
-		
-		return null;
 	}
-	@GetMapping("comment/updatecomment")
+	@PostMapping("comment/updatecomment")
 	@ResponseBody
 	public String commentUpdate(@RequestParam int _id, String content, String username){
 		System.out.println(_id);
@@ -68,7 +65,7 @@ public class CommentController {
 
 		return null;
 	}
-	@GetMapping("comment/deletecomment")
+	@PostMapping("comment/deletecomment")
 	@ResponseBody
 	public String commentDelete(@RequestParam int _id){
 

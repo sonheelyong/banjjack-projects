@@ -25,7 +25,7 @@ public class CommentService {
     public void commentDelete(int _id) {
         commentDao.commentDelete(_id);
     }
-    public void commentWrite(CommentVo commentVo) {
-        commentDao.commentWrite( commentVo );
+    public void writeComment(CommentVo commentVo) {
+        commentDao.writeComment( commentVo );
     }
 }

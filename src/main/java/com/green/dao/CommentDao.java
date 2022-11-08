@@ -13,6 +13,6 @@ public interface CommentDao {
 
    public void commentDelete(int _id);
 
-   public void commentWrite(CommentVo commentVo);
+   public void writeComment(CommentVo commentVo);
 
 }
