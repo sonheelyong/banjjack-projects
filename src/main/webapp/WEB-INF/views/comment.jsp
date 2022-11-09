@@ -32,110 +32,168 @@
         </style>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
-        window.onload = function (){
+
+        // window.onload = function (){
+        //     fnCommentList();
+        // }
+        $(document).ready(function() {
             fnCommentList();
-        }
-        function fnCommentList() {
+        });
+            function fnCommentList() {
+                $.ajax({
+                    url: "/comment/commentList?content_id=1",
+                    type: "get",
+                    error: function (xhr) {
+                        console.log("error html = " + xhr.statusText);
+
+                    },
+                    success: function (data) {
+                        console.log(data);
+
+
+                        let str = "";
+                        $.each(data, function (index, element) {
+                            console.log(element);
+                            console.log(element.name);
+                            console.log(element.content);
+
+                            str +=
+                                "<div class=\"commentBigBox\">"
+                                + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
+                                + "<div class=\"commentIcon\">"
+                                + "<span class=\"material-icons-outlined\">"
+                                + "android"
+                                + "</span>"
+                                + "</div>"
+                                + "<div class=\"commentBox\">"
+
+                                + "<span class=\"comWriter\">"
+                                + "<input type=\"text\" name=\"comWriter\" value=\'" + element.name + "\'>"
+
+                                + "<button class=\"commentDelBtn\" onClick=\"fnDelClick(" + element._id + ")\" > 삭제 </button>"
+
+                                + "<button class=\"commentEditBtn\" onClick=\"fnEditClick(" + element._id + ")\" > 수정 </button>"
+                                + "</span>"
+                                + "<span class=\"commentDate\">"
+                                + "<input type=\"text\" name=\"commentDate\">"
+                                + "</span>"
+                                + "<div class=\"commentText\" id= \'" + element._id + "\' >"
+                                + element.content
+                                + "<br>"
+                                + "</div>"
+                                + "</div>"
+                                + "</div>"
+
+                            <%--str +=--%>
+                            <%--    + '<div class="commentBox">' +'' +'</div>'--%>
+                            <%--    + '<div class="commentIcon">' +'' +'</div>'--%>
+                            <%--    + '<span class="comWirter">' + element.username + '</span>'--%>
+                            <%--    + '<span class="commentdate">' + element.time + '</span>'--%>
+                            <%--    + '<div class="commentText">' + element.content + '</div>';--%>
+
+                            <%--&lt;%&ndash;if(element.username=="${}"){&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;    str=str+   '<button name="commentEdit" type="button" class="commentEdit" >수정</button>'&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;        +  '<button name="commentDel" type="button" class="commentDel" >삭제</button>';&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;}&ndash;%&gt;--%>
+                            <%--str = str + '</div>'--%>
+                            <%--    + '</div>';--%>
+                        })
+                        document.getElementById('commentBigBox').innerHTML += str;
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                $('#commentWriteButton').click(function () {
+
+                    let commentWriteData =
+
+                        {
+                            username: $('#commname').val(),
+                            content_id: $('#commcont_id').val(),
+                            time: $('#commtime').val(),
+                            content: $('#commcontent').val()
+                        }
+                    console.log(commentWriteData);
+
+
+                    $.ajax({
+                        url: "/comment/writeComment",
+                        type: "post",
+                        data: commentWriteData,
+                        // error: function (xhr) {
+                        //     alert("실패");
+                        //
+                        //     console.log("error html = " + xhr.statusText);
+                        //     console.log("error");
+                        //
+                        // },
+                        // success: function (commentWriteData) {
+                        //     alert("성공");
+                        //     console.log(commentWriteData);
+                        //
+                        // }
+                    });
+                }); //등록버튼
+            });
+        //삭제버튼
+        function fnDelClick(_id) {
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa")
+
             $.ajax({
-                url: "/comment/commentList?content_id=1",
-                type: "get",
-                error:function(xhr){
+                url: "/comment/deletecomment/",
+                type: "post",
+                data: {"_id" : _id},
+                dataType: "json",
+
+                error: function (xhr) {
+                    alert("실패");
+                    console.log("data" + data);
                     console.log("error html = " + xhr.statusText);
+                    console.log("error");
 
                 },
                 success: function (data) {
-                    console.log(data);
-
-
-                    let str = "";
-                    $.each(data, function (index, element) {
-                        console.log(element);
-                        console.log(element.name);
-                        console.log(element.content);
-
-                        str +=
-                         "<div class=\"commentBigBox\">"
-                            +"<input type=\"hidden\" name=\"_id\" value=\'" + element._id+"\'>"
-                            +"<div class=\"commentIcon\">"
-                               + "<span class=\"material-icons-outlined\">"
-                               + "android"
-                               +"</span>"
-                            +"</div>"
-                                +"<div class=\"commentBox\">"
-
-                            +"<span class=\"comWriter\">"
-                                    +"<input type=\"text\" name=\"comWriter\" value=\'"+ element.name + "\'>"
-
-                            +"<button class=\"commentDelBtn\" onClick=\"fnDelClick("+element._id+")\" > 삭제 </button>"
-
-                            +"<button class=\"commentEditBtn\" onClick=\"fnEditClick("+element._id+")\" > 수정 </button>"
-                            +"</span>"
-                                    +"<span class=\"commentDate\">"
-                                +"<input type=\"text\" name=\"commentDate\">"
-                            +"</span>"
-                                    +"<div class=\"commentText\">"
-                                        +element.content
-                                        +"<br>"
-                                    +"</div>"
-                                +"</div>"
-                            +"</div>"
-
-                        <%--str +=--%>
-                        <%--    + '<div class="commentBox">' +'' +'</div>'--%>
-                        <%--    + '<div class="commentIcon">' +'' +'</div>'--%>
-                        <%--    + '<span class="comWirter">' + element.username + '</span>'--%>
-                        <%--    + '<span class="commentdate">' + element.time + '</span>'--%>
-                        <%--    + '<div class="commentText">' + element.content + '</div>';--%>
-
-                        <%--&lt;%&ndash;if(element.username=="${}"){&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;    str=str+   '<button name="commentEdit" type="button" class="commentEdit" >수정</button>'&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;        +  '<button name="commentDel" type="button" class="commentDel" >삭제</button>';&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;}&ndash;%&gt;--%>
-                        <%--str = str + '</div>'--%>
-                        <%--    + '</div>';--%>
-                    })
-                    document.getElementById('commentBigBox').innerHTML += str;
+                    alert("성공");
+                    console.log("data" + data);
                 }
             });
+            // fnCommentList();
         }
 
-        $(document).ready(function(){
-            $('#commentWriteButton').click(function(){
-                let commentWriteData =
-                    {
-                        username : $('#commname').val(),
-                        content_id : $('#commcont_id').val(),
-                        time: $('#commtime').val(),
-                        content: $('#commcontent').val()
-                    }
-                console.log(commentWriteData);
-                $.ajax({
-                    url: "/comment/writeComment",
-                    type: "post",
-                    data: commentWriteData,
-                    // error: function (xhr) {
-                    //     alert("실패");
-                    //
-                    //     console.log("error html = " + xhr.statusText);
-                    //     console.log("error");
-                    //
-                    // },
-                    // success: function (commentWriteData) {
-                    //     alert("성공");
-                    //     console.log(commentWriteData);
-                    //
-                    // }
-                });
-            });
-        });
-        //삭제버튼
-        function fnDelClick(_id){
+        //수정버튼
+        function fnEditClick(_id) {
 
+            var content = document.getElementById(_id)
+            let updateform = "";
+
+            updateform += "<input type=\"hidden\" id=\"updateCommName\" name=\"username\" value=\"1234\">";
+            updateform += "<input type=\"hidden\" id=\"updateComm_id\" name=\"_id\" value= _id>";
+            updateform += "<textarea id=\"updateCommentInput\" name=\"updateCommentContent\" cols=\"80\" rows=\"3\">";
+            updateform += content.textContent
+            updateform += "</textarea>";
+            updateform += "<button class=\"commentUpdateBtn\" onClick=\"fnCommentUpdate(" + _id + ")\"> 수정 </button>";
+            updateform += "<button class=\"commentUpdateCancelBtn\" onClick= \"fnCommentList()\" > 취소 </button>";
+
+            document.getElementById(_id).innerHTML = updateform;
+        };
+
+        function fnCommentUpdate(_id) {
+            console.log("뿅");
+            let commentUpdateData =
+
+                {
+                    _id: _id,
+                    username: $('#updateCommName').val(),
+                    content: $('#updateCommentInput').val(),
+
+                }
+            console.log(commentUpdateData);
             $.ajax({
-                url:"deletecomment/",
-                type:"post",
-                data: {"_id" : _id},
-                dataType:"json",
+                url: "/comment/updatecomment/",
+                type: "post",
+                data: commentUpdateData,
+                dataType: "json",
                 // error: function (xhr) {
                 //     alert("실패");
                 //     console.log("data"+deldata);
@@ -147,13 +205,15 @@
                 //     alert("성공");
                 //     console.log("data"+data);
                 // }
+                success: function (data) {
+                    // location.reload();
+                    // $('#commentListBox').load()
+
+                }
             });
+
         }
 
-        //수정버튼
-        $("#commentEdit").on("click", function() {
-
-        });
 
     </script>
 

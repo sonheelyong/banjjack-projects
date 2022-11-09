@@ -43,38 +43,36 @@ public class CommentController {
 	}
 
 	@PostMapping("comment/writeComment")
-	@ResponseBody
+
 	public void writeComment(CommentVo commentVo) {
 		System.out.println("vO"+ commentVo);
 		commentService.writeComment(commentVo);
 //		return "comment";
 	}
 	@PostMapping("comment/updatecomment")
-	@ResponseBody
-	public String commentUpdate(@RequestParam int _id, String content, String username){
-		System.out.println(_id);
-		System.out.println(content);
-		System.out.println(username);
+
+	public void commentUpdate(@RequestParam int _id, String content, String username){
+
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("_id", _id);
 		map.put("content", content);
 		map.put("username", username);
 		commentService.commentUpdate(map);
 
-		return null;
+//		return "comment";
 	}
 	@PostMapping("comment/deletecomment")
+	@ResponseBody
+	public void commentDelete(@RequestParam int _id){
 
-	public String commentDelete(@RequestParam int _id){
-
-		System.out.println(_id);
+//		System.out.println(_id);
 
 		commentService.commentDelete(_id);
 
-		return null;
 	}
 
 	@GetMapping("/comment")
+
 	public String getComment(){
 		return "comment";
 	}
