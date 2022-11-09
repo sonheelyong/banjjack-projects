@@ -32,9 +32,10 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public void commentWrite(CommentVo commentVo) {
-        sqlSession.insert("Comment.commentWrite", commentVo);
+    public void writeComment(CommentVo commentVo) {
+        sqlSession.insert("Comment.writeComment", commentVo);
     }
+
 
 
 }
