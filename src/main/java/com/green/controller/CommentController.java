@@ -43,31 +43,52 @@ public class CommentController {
 	}
 
 	@PostMapping("comment/writeComment")
+	@ResponseBody
+	public  Map<String, Object>  writeComment(CommentVo commentVo) {
+		System.out.println(commentVo);
+		Map<String, Object> map = new HashMap <String, Object>();
+		try {
+			commentService.writeComment(commentVo);
+			map.put("result", "success");
+		}catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", "fail");
+		}
+		return  map ;
 
-	public void writeComment(CommentVo commentVo) {
-		System.out.println("vO"+ commentVo);
-		commentService.writeComment(commentVo);
-//		return "comment";
 	}
 	@PostMapping("comment/updatecomment")
+	@ResponseBody
+	public  Map<String, Object>  commentUpdate(@RequestParam int _id, String content, String username){
 
-	public void commentUpdate(@RequestParam int _id, String content, String username){
+		Map<String, Object>commentupdate = new HashMap<String, Object>();
+		commentupdate.put("_id", _id);
+		commentupdate.put("content", content);
+		commentupdate.put("username", username);
 
-		Map<String, Object>map = new HashMap<String, Object>();
-		map.put("_id", _id);
-		map.put("content", content);
-		map.put("username", username);
-		commentService.commentUpdate(map);
+		Map<String, Object> map = new HashMap <String, Object>();
+		try {
+			commentService.commentUpdate(commentupdate);
+			map.put("result", "success");
+		}catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", "fail");
+		}
+		return  map ;
 
-//		return "comment";
 	}
 	@PostMapping("comment/deletecomment")
 	@ResponseBody
-	public void commentDelete(@RequestParam int _id){
-
-//		System.out.println(_id);
-
-		commentService.commentDelete(_id);
+	public Map<String, Object> commentDelete(@RequestParam int _id){
+		Map<String, Object> map = new HashMap <String, Object>();
+		try {
+			commentService.commentDelete(_id);
+			map.put("result", "success");
+		}catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", "fail");
+		}
+		return  map ;
 
 	}
 
@@ -77,4 +98,3 @@ public class CommentController {
 		return "comment";
 	}
 }
-
