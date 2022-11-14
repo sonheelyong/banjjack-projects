@@ -49,7 +49,7 @@ public class CommunityController {
     //게시글조회폼
     @GetMapping("/getCommunityRead")
     @ResponseBody
-    public List<JSONObject> getCommunityRead(@RequestParam int _id) {
+    public List<JSONObject> 본getCommunityRead(@RequestParam int _id) {
         System.out.println(_id);
         List<JSONObject> getRead = new ArrayList<>();
         for(CommunityVo vo: communityService.readCommunity(_id)){

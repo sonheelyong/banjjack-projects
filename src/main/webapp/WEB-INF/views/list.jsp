@@ -23,82 +23,7 @@
         a { text-decoration-line: none; }
     </style>
     <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script>
-        function header() {
-            let header = '<tr>';
-            header    += '<th>번호</th>';
-            header    += '<th>제목</th>';
-            header    += '<th>글쓴이</th>';
-            header    += '<th>카테고리</th>';
-            header    += '<th>날짜</th>';
-            header    += '<th>조회수</th>';
-            header    += '</tr>';
-            return header;
-        }
-
-        $.ajax( {
-            url  :  '/getlist?num=${num}&category=${category}' ,
-            data :  {
-                _id : $('#_id').val() ,
-                title : $('#title').val(),
-                username : $('#username').val(),
-                category : $('#category').val(),
-                time : $('time').val(),
-                readcount : $('#readcount').val(),
-                bnum : $('#bnum').val(),
-                lvl : $('#lvl').val(),
-                step : $('#step').val(),
-            },
-            method   : "GET",
-            dataType:  "json"
-        })
-            .done(function( result, textStatus, xhr ) {
-                console.log($('.category').val() );
-                var resultStr = JSON.stringify( result ); // JSOn -> string
-                var html= "";
-
-                html     += header();
-                for(var i = 0; i < result.length; i++  ){
-                    var _id = result[i]._id
-                    var title = result[i].title
-                    var username = result[i].username
-                    var category = result[i].category
-                    var time = result[i].time
-                    var readcount = result[i].readcount
-                    var bnum = result[i].bnum
-                    var lvl = result[i].lvl
-                    var step = result[i].step
-
-                    html += '<tr>';
-                    html += '<td>' + _id   + '</td>';
-                    if(lvl > 1){
-                        var space = lvl * 20
-                        html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '"> <b style="padding-left:'+space+'px">[답글]' + title  + '</a> </b> </td>';
-                    } else {
-                        html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '">' +  title  + '</a> </td>';
-                    }
-                    html += '<td>' + username + '</td>';
-                    if(category == '1'){
-                        html += '<td> 강아지 </td>';
-                    }
-                    else if(category =='2') {
-                        html += '<td> 고양이 </td>';
-                    }
-                    else if(category =='3') {
-                        html += '<td> 기타 </td>';
-                    }
-                    html += '<td>' + time   + '</td>';
-                    html += '<td>' + readcount  + '</td>';
-                    html += '</tr>';
-                };
-                html += '</table>'
-                $('#div1').html(html);
-            })
-            .fail(function( error ) {
-                console.log( error );
-            });
-    </script>
-
+    <%@ include file="header.jsp"%>
 </head>
 <body>
 
@@ -134,5 +59,83 @@
 
 
 <a href="/writeform?username=1234&_id=0&bnum=0&lvl=0&step=0">새 글 쓰기</a>
+
+
+<script>
+    function header() {
+        let header = '<tr>';
+        header    += '<th>번호</th>';
+        header    += '<th>제목</th>';
+        header    += '<th>글쓴이</th>';
+        header    += '<th>카테고리</th>';
+        header    += '<th>날짜</th>';
+        header    += '<th>조회수</th>';
+        header    += '</tr>';
+        return header;
+    }
+    $.ajax( {
+        url  :  '/getlist?num=${num}&category=${category}' ,
+        data :  {
+            _id : $('#_id').val() ,
+            title : $('#title').val(),
+            username : $('#username').val(),
+            category : $('#category').val(),
+            time : $('time').val(),
+            readcount : $('#readcount').val(),
+            bnum : $('#bnum').val(),
+            lvl : $('#lvl').val(),
+            step : $('#step').val(),
+        },
+        method   : "GET",
+        dataType:  "json"
+    })
+        .done(function( result, textStatus, xhr ) {
+            console.log("여기")
+            console.log(result);
+            // console.log($('.category').val() );
+            var resultStr = JSON.stringify( result ); // JSOn -> string
+            var html= "";
+
+            html     += header();
+            for(var i = 0; i < result.length; i++  ){
+                var _id = result[i]._id
+                var title = result[i].title
+                var username = result[i].username
+                var category = result[i].category
+                var time = result[i].time
+                var readcount = result[i].readcount
+                var bnum = result[i].bnum
+                var lvl = result[i].lvl
+                var step = result[i].step
+
+                html += '<tr>';
+                html += '<td>' + _id   + '</td>';
+                if(lvl > 1){
+                    var space = lvl * 20
+                    html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '"> <b style="padding-left:'+space+'px">[답글]' + title  + '</a> </b> </td>';
+                } else {
+                    html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '">' +  title  + '</a> </td>';
+                }
+                html += '<td>' + username + '</td>';
+                if(category == '1'){
+                    html += '<td> 강아지 </td>';
+                }
+                else if(category =='2') {
+                    html += '<td> 고양이 </td>';
+                }
+                else if(category =='3') {
+                    html += '<td> 기타 </td>';
+                }
+                html += '<td>' + time   + '</td>';
+                html += '<td>' + readcount  + '</td>';
+                html += '</tr>';
+            };
+            html += '</table>'
+            $('#div1').html(html);
+        })
+        .fail(function( error ) {
+            console.log( error );
+        });
+</script>
 </body>
 </html>

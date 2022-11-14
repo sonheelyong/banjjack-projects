@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -49,20 +50,21 @@ public class WriteController {
 
 	@GetMapping("/getlist")
 	@ResponseBody
-	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num) {
+	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num, ModelAndView model) {
+
 		int postnum = page.getPostnum();
 		int displayPost = page.getDisplaypost();
 
 
 
-		System.out.println("postnum : " + postnum + "displayPost : " + displayPost + "num : " + num);
+//		System.out.println("postnum : " + postnum + "displayPost : " + displayPost + "num : " + num);
 
 
 		List<WriteVo> writeVo = writeService.getList(category, displayPost, postnum);
-		System.out.println(writeVo);
+//		System.out.println(writeVo);
 		List<JSONObject> getList = new ArrayList<>();
 		for (WriteVo vo : writeVo) {
-			System.out.println("vo : " + vo);
+//			System.out.println("vo : " + vo);
 			JSONObject data = new JSONObject();
 			data.put("_id", vo.get_id());
 			data.put("title", vo.getTitle());
