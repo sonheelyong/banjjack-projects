@@ -4,26 +4,43 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Comment">
+    <!--   리스트 조회 -->
     <select id="commentList"
-            parameterType="Integer"
+            parameterType="HashMap"
             resultType="com.green.vo.CommentVo">
+
         SELECT
-            _id,
-            username,
-            time,
-            content
+            c._id,
+            c.username,
+            c.time,
+            p.profiledata,
+            c.content,
+            (SELECT count(_id) from comment_tb where content_id = #{content_id} and menu_id = #{menu_id})commentcount
         FROM
-            comment_tb
+            comment_tb as c
+            JOIN profile_tb as p
+        on c.username = p.username
         WHERE
             content_id = #{content_id}
+          AND
+            menu_id = #{menu_id}
+        Order BY _id DESC
+            LIMIT #{displaypost},#{postnum}
+    </select>
+    <!--댓글숫자-->
+    <select id= "listCount"
+            resultType="int">
+        SELECT COUNT(*) FROM comment_tb
+        WHERE content_id = #{content_id}
+          AND menu_id = #{menu_id}
 
     </select>
-
+    <!--코멘트 쓰기-->
     <insert id="writeComment">
-        INSERT INTO  comment_tb( content_id, username, content, time)
-        VALUES (#{content_id}, #{username}, #{content}, NOW())
+        INSERT INTO  comment_tb( content_id, username, content, time, menu_id)
+        VALUES (#{content_id}, #{username}, #{content}, NOW(), #{menu_id})
     </insert>
-
+    <!--코멘트 수정-->
     <update id="commentUpdate">
         UPDATE comment_tb
         SET content =  #{content}
@@ -31,10 +48,16 @@
           AND _id      = #{_id}
     </update>
 
-
+    <!--코멘트 삭제-->
     <delete id="commentDelete">
         DELETE FROM comment_tb
         WHERE _id  = #{_id}
     </delete>
-
+    <!--프로필 사진 불러오기 -->
+    <select id="getUserProfile"
+            resultType="String">
+        SELECT profiledata
+        FROM   profile_tb
+        WHERE  username = #{username}
+    </select>
 </mapper>
