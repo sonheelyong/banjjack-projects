@@ -2,8 +2,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%--<% String username = request.getParameter("username"); %>--%>
-<%--<% String content_id = request.getParameter("_id"); %>--%>
 
 
 <head>
@@ -33,7 +31,7 @@
         });
         //리스트조회
         function fnCommentList(num) {
-
+            console.log("num"+num);
             $("#commentListBox").empty();
             $("#pagingBox").empty();
             $.ajax({
@@ -42,18 +40,19 @@
                 data: { 'content_id' : content_id,
                     'menu_id' : menu_id,
                     'num' : num },
+
                 error: function (xhr) {
                     console.log(xhr)
                 },
                 success: function (data) {
                     console.log(data);
                     let next = data[0].next;
-                    let startPageNum = data[0].startPageNum;
-                    let select = data[0].num;
-                    let endPageNum = data[0].endPageNum;
-                    let num = data[0].num;
+                    let startPageNum = Number(data[0].startPageNum);
+                    let select = Number(data[0].num)*1;
+                    let endPageNum = Number(data[0].endPageNum);
+                    let num = Number(data[0].num);
                     let prev = data[0].prev;
-                    let commentCount = data[0].commentCount;
+                    let commentCount = Number(data[0].commentCount);
                     console.log(next, num, select, endPageNum);
                     let str = ""
                     let paging = "";
@@ -67,13 +66,14 @@
                             + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
                             + "<div class=\"commentIcon\">"
                             + "<span class=\"material-icons-outlined\">"
-                        if (element.profiledata == '') {
-                            str = str
-                                + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
-                        }else{
-                            str = str
-                                + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
-                        }
+                        //프로필 임시 주석처리
+                        // if (element.profiledata == '') {
+                        //     str = str
+                        //         + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
+                        // }else{
+                        //     str = str
+                        //         + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
+                        // }
                         str = str
                             + "</span>"
                             + " <br>"
@@ -83,8 +83,9 @@
                             + "</div>"
                             + "<div class=\"commentBox\">"
                             + "<span class=\"comWriter\">"
-                            + element.name
+                            + element.usernickname
                             + "</span>"
+                            + "<input type= \"hidden\" name=\"username\" value=\'"+element.name+"\'>"
                         if(element.name == "${user.username}" ) {
                             str=str
                                 +"<span class=\"buttonSpan\">"
@@ -101,30 +102,36 @@
                             + "</div>"
                             + "</li>"
                     })
+                    console.log("ep1/"+endPageNum)
                     //페이징
                     if (prev === true){
-                        paging+="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+startPageNum -1 +");\" return false; class=\"page-link\" id=\"prev\">이전</a></li>"
+                        startPageNum=Number(startPageNum)-1;
+                        console.log(startPageNum)
+                        paging+="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+ startPageNum + ");\" return false; class=\"page-link\" id=\"prev\">이전</a></li>"
                             +"<span aria-hidden=\"true\"></span>"
                     }
-                    for(let num=startPageNum; num<=endPageNum; num++){
-                        if (select != num){
-                            paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+num+");\" return false; class=\"page-link\">"+num+"</a></li>"
-                        }else{
-                            paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" + \" return false; class=\"page-link\"><p>"+num+"</p></li>"
-                        }
-                        if (next === true) {
-                            paging += "<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList(" + endPageNum +1 + ");\" return false; class=\"page-link\" id=\"prev\">다음</a></li>"
-                                + "<span aria-hidden=\"true\"></span>"
+                    for(let num=startPageNum; num<=endPageNum; num++) {
+                        if (select != num) {
+                            paging += "<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList(" + num + ");\" return false; class=\"page-link\">"+num+"</a></li>"
+                        } else {
+                            paging += " <li class=\"page-item active\" aria-current=\"page\"><a href=\"#\"class=\"page-link\">"+num+"</li>"
                         }
                     }
-                    console.log(paging);
+                    if (next === true) {
+                        endPageNum=Number(endPageNum)+1;
+                        paging += "<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList(" +endPageNum + ");\" return false; class=\"page-link\" id=\"next\">다음</a></li>"
+                            + "<span aria-hidden=\"true\"></span>"
+                    }
+                    console.log("ep2/"+endPageNum)
+
+                    console.log("ep3/"+endPageNum+1);
                     document.getElementById('count').textContent = commentCount;
                     document.getElementById('commentListBox').innerHTML += str;
                     document.getElementById('pagingBox').innerHTML += paging;
                 } //리스트조회
             })
         }
-        //작성버튼
+        //쓰기
         $(document).ready(function() {
             $('#commentWriteButton').click(function () {
                 let commentWriteData = {
@@ -140,10 +147,15 @@
                     error: function (xhr) {
                     },
                     success: function (data) {
-                        $("#commentListBox").empty();
-                        fnCommentList(num);
-                        $("#commContent").val('');
-                        document.getElementById('countNum').innerHTML = '( 0/ 300)';
+                        if (data.result =="loginFail") {
+                            alert("로그인하세요!")
+                            window.location.href = "/login";
+                        }else {
+                            $("#commentListBox").empty();
+                            fnCommentList(num);
+                            $("#commContent").val('');
+                            document.getElementById('countNum').innerHTML = '( 0/ 300)';
+                        }
                     }
                 });
             }); //등록버튼
@@ -207,57 +219,57 @@
 
     </script>
 </head>
-<div class="container">
+<div class="container" style="width: 700px;">
 
-<br>
-<div class="commentCount"> 댓글 <span id = "count"></span></div>
-<br>
-<%--댓글리스트 출력부--%>
-<ul class="list-group list-group-flush" id="commentListBox">
+    <br>
+    <div class="commentCount"> 댓글 <span id = "count"></span></div>
+    <br>
+    <%--댓글리스트 출력부--%>
+    <ul class="list-group list-group-flush" id="commentListBox">
 
-</ul>
-<%--댓글페이징--%>
-<nav aria-label="Page navigation">
-    <div class="center">
-        <ul class="pagination" id="pagingBox">
+    </ul>
+    <%--댓글페이징--%>
+    <nav aria-label="Page navigation">
+        <div class="center">
+            <ul class="pagination" id="pagingBox">
 
-        </ul>
-    </div>
-</nav>
-
-
+            </ul>
+        </div>
+    </nav>
 
 
-<!--댓글 입력부 -->
 
-<div class="commentInputBox">
-    <%--            <form  action="/comment/writeComment" id="writecom1" method="post" >--%>
-    <input type="hidden" id="commName" name="username" value="${user.username}">
-    <%--            <input type="hidden" id="commCont_id" name="content_id" value="1">--%>
-    <%--            <input type="hidden" id="commTime" name="time" value="">--%>
-    <textarea class="commentInput" id="commContent" name="content" cols="70" rows="3" ></textarea>
-    <span class="regBtn">
+
+    <!--댓글 입력부 -->
+
+    <div class="commentInputBox">
+        <%--            <form  action="/comment/writeComment" id="writecom1" method="post" >--%>
+        <input type="hidden" id="commName" name="username" value="${user.username}">
+        <%--            <input type="hidden" id="commCont_id" name="content_id" value="1">--%>
+        <%--            <input type="hidden" id="commTime" name="time" value="">--%>
+        <textarea class="commentInput" id="commContent" name="content" cols="70" rows="3" ></textarea>
+        <span class="regBtn">
         <button type="submit" class="btn btn-secondary btn-lg" id= commentWriteButton > 등록</button>
     </span>
-    <br>
-    <span id="countNum">
+        <br>
+        <span id="countNum">
         ( 0/ 300)
     </span>
-    <%--            </form>--%>
-</div>
+        <%--            </form>--%>
+    </div>
 
 
-<script>
+    <script>
 
-    $('.commentInput').on('keyup', function() {
-        $('#countNum').html("("+$(this).val().length+" / 300)");
+        $('.commentInput').on('keyup', function() {
+            $('#countNum').html("("+$(this).val().length+" / 300)");
 
-        if($(this).val().length > 300) {
-            $(this).val($(this).val().substring(0, 300));
-            $('.countNum').html("(300 / 300)");
-            alert("300자가 초과되었습니다")
-        }
-    });
-</script>
+            if($(this).val().length > 300) {
+                $(this).val($(this).val().substring(0, 300));
+                $('.countNum').html("(300 / 300)");
+                alert("300자가 초과되었습니다")
+            }
+        });
+    </script>
 
 </div>

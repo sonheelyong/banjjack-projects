@@ -45,7 +45,6 @@ public class CommentController {
 	@GetMapping("comment/commentList")
 	@ResponseBody
 	public List<JSONObject> getCommentList(@RequestParam int content_id, int menu_id, int num) throws ParseException {
-		System.out.println("dy");
 		page.setNum(num);
 		page.setCount(commentService.listCount(num, menu_id, content_id));
 
@@ -72,6 +71,7 @@ public class CommentController {
 			obj.put("content", cl.getContent());
 			obj.put("time", timeGap.getTime());
 			obj.put("profiledata", cl.getProfiledata());
+			obj.put("usernickname", cl.getUsernickname());
 
 			commentList.add(obj);
 		}
