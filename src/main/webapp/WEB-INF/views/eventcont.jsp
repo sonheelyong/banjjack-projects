@@ -76,40 +76,41 @@
     </script>
 </head>
 <body>
-<section>
-    <div>
+<div class="container">
+    <section>
         <div>
-            <h3 class="center">이벤트 내용보기</h3>
-            <form action="/eventupdateForm" method ="GET" name = "message_form" id="a">
-                <input type="hidden" id ="_id" name="_id">
-                <div class="layer">
-                    <ul class="content">
-                        <li>
-                            <h2 id="title" class="left"></h2>
-                        </li>
-                        <li class="left flex-container border-bottom border-top">
-                            <div class="flex-item left">작성자 :</div>
-                            <div class="flex-item left" id="writer"></div>
-                            <div class="flex-item right">이벤트 기간 : </div>
-                            <div class="flex-item left" id="time"></div>
-                        </li>
-                        <li class="left textarea border-bottom">
-                            <div id="content"></div>
-                        </li>
-                        <li class="right"> <input type="submit" value="수정(관리자용)" id="adminlist" class="btn btn-primary"> <a href="/eventlistform" class="btn btn-primary">이벤트 목록</a></li>
-                    </ul>
-                </div>
-            </form>
+            <div>
+                <h3 class="center">이벤트 내용보기</h3>
+                <form action="/eventupdateForm" method ="GET" name = "message_form" id="a">
+                    <input type="hidden" id ="_id" name="_id">
+                    <div class="layer">
+                        <ul class="content">
+                            <li>
+                                <h2 id="title" class="left"></h2>
+                            </li>
+                            <li class="left flex-container border-bottom border-top">
+                                <div class="flex-item left">작성자 :</div>
+                                <div class="flex-item left" id="writer"></div>
+                                <div class="flex-item right">이벤트 기간 : </div>
+                                <div class="flex-item left" id="time"></div>
+                            </li>
+                            <li class="left textarea border-bottom">
+                                <div id="content"></div>
+                            </li>
+                            <li class="right"> <input type="submit" value="수정(관리자용)" id="adminlist" class="btn btn-primary"> <a href="/eventlistform" class="btn btn-primary">이벤트 목록</a></li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
         </div>
 
-    </div>
-
-</section>
-<script>
-    if('${user.role}' != 'ADMIN'){
-        $('#adminlist').css('display','none');
-    }
-</script>
-
+    </section>
+    <script>
+        if('${user.role}' != 'ADMIN'){
+            $('#adminlist').css('display','none');
+        }
+    </script>
+</div>
 </body>
 </html>

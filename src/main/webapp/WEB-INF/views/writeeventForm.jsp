@@ -5,11 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>이벤트 작성</title>
-    <%@ include file="header.jsp"%>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
 
 
     <style>
@@ -75,50 +71,51 @@
 
 </head>
 <body>
-<section>
+<div class="container">
+    <section>
 
-    <div id="main_content" class="layer">
+        <div id="main_content" class="layer">
 
 
-        <form  action="/writeevent" method="post">
-            <input type="hidden" name="writer"  value=${user.username} />
+            <form  action="/writeevent" method="post">
+                <input type="hidden" name="writer"  value=${user.username} />
 
-            <div class="content">
-                <ul class="content">
-                    <h3 class="left">이벤트 작성</h3>
-                    <li class="left">
-                        <span>작성자 : </span>
-                        <span style="bottom-line: 1px;">${user.username}</span>
-                    </li>
-                    <li class="left">
-                        <span>시작일 : <input type="date" name="start_time">&nbsp</span>
-                        <span>종료일 : <input type="date" name="end_time" ></span>
-                    </li>
+                <div class="content">
+                    <ul class="content">
+                        <h3 class="left">이벤트 작성</h3>
+                        <li class="left">
+                            <span>작성자 : </span>
+                            <span style="bottom-line: 1px;">${user.username}</span>
+                        </li>
+                        <li class="left">
+                            <span>시작일 : <input type="date" name="start_time">&nbsp</span>
+                            <span>종료일 : <input type="date" name="end_time" ></span>
+                        </li>
 
-                    <li class="left">
-                        <span><input type="text" name="title" placeholder="제목"></span>
-                    </li>
+                        <li class="left">
+                            <span><input type="text" name="title" placeholder="제목"></span>
+                        </li>
 
-                    <li class="left">
+                        <li class="left">
               <span class="col2"><textarea id="test" name="content"  placeholder="300자 이내로 입력 가능"></textarea><div id="test_cnt"></div>
                                     </span>
-                    </li>
-                    <li class="right">
-                        <input type="submit" value="이벤트 작성" class="btn btn-primary">
-                        <a href='/eventlistform' class="btn btn-primary">이벤트 목록</a>
-                    </li>
-                </ul>
+                        </li>
+                        <li class="right">
+                            <input type="submit" value="이벤트 작성" class="btn btn-primary">
+                            <a href='/eventlistform' class="btn btn-primary">이벤트 목록</a>
+                        </li>
+                    </ul>
 
 
 
-            </div>
-        </form>
-    </div>
+                </div>
+            </form>
+        </div>
 
 
 
 
-</section>
-
+    </section>
+</div>
 </body>
 </html>
