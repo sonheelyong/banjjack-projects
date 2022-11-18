@@ -1,264 +1,230 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%--<% String username = request.getParameter("username"); %>--%>
 <%--<% String content_id = request.getParameter("_id"); %>--%>
 
-<!DOCTYPE html>
 
-<html>
 <head>
     <title>on progress</title>
+
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
           rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/comment.css">
 
-    <style>
-        div.commentListBox { width:600px; height: auto ; }
-        div.commentBigBox { padding-bottom: 20px; display: inline-block;}
-        div.commentIcon { float:left; width:50px; position : relative ;
-            margin-top: auto ; margin-bottom: auto; margin-left:1px ;
-            text-align: center;}
-        div.commentBox { float:right; width:530px; }
-        div.commentText { width:600px; display: flex ; flex-direction: column;}
-        span.comWriter > input { width:100px ; border:none; font-weight: 600; font-size: large;}
-        div.commentText { width:540px; margin-top:2px;}
-        div.commentInputBox{width:600px; margin-top:30px;}
-        span.commentDate > input { border:none;}
-        textarea { width:600px; resize:none; }
-        div.regBtn { float:right;}
-    </style>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
-        let query = window.location.search;
-        let param = new URLSearchParams(query);
-        let content_id = param.get('_id');
 
-        console.log(content_id);
+        let query = window.location.search;
+        let params = new URLSearchParams(query);
+        let content_id='${param.content_id}';
+        let menu_id='${param.menu_id}';
+        let num = params.get('num');
+        let i=0;
+        if (num==null) {
+            num = 1;
+        }
+        console.log("ci"+"${param.content_id}");
+        console.log("mi"+"${param.menu_id}");
 
         $(document).ready(function() {
-            fnCommentList();
+            fnCommentList(num);
         });
+        //리스트조회
+        function fnCommentList(num) {
 
-        function fnCommentList() {
+            $("#commentListBox").empty();
+            $("#pagingBox").empty();
             $.ajax({
                 url: "/comment/commentList",
                 type: "get",
-                data: { 'content_id' : content_id},
+                data: { 'content_id' : content_id,
+                    'menu_id' : menu_id,
+                    'num' : num },
                 error: function (xhr) {
-                    console.log("error html = " + xhr.statusText);
-
+                    console.log(xhr)
                 },
                 success: function (data) {
                     console.log(data);
+                    let next = data[0].next;
+                    let startPageNum = data[0].startPageNum;
+                    let select = data[0].num;
+                    let endPageNum = data[0].endPageNum;
+                    let num = data[0].num;
+                    let prev = data[0].prev;
+                    let commentCount = data[0].commentCount;
+                    console.log(next, num, select, endPageNum);
+                    let str = ""
+                    let paging = "";
 
 
-                    let str = "";
                     $.each(data, function (index, element) {
-
-                        str +=
-                            "<div class=\"commentBigBox\">"
+                        if(element.next == true || element.next ==false)
+                            return;
+                        str =str
+                            + "<li class=\"list-group-item\" name= \"commentBigBox\">"
                             + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
                             + "<div class=\"commentIcon\">"
                             + "<span class=\"material-icons-outlined\">"
-                            + "android"
+                        if (element.profiledata == '') {
+                            str = str
+                                + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
+                        }else{
+                            str = str
+                                + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
+                        }
+                        str = str
+                            + "</span>"
+                            + " <br>"
+                            + "<span class=\"commentDate\">"
+                            + element.time
                             + "</span>"
                             + "</div>"
                             + "<div class=\"commentBox\">"
-
                             + "<span class=\"comWriter\">"
-                            + "<input type=\"text\" name=\"comWriter\" value=\'" + element.name + "\'>"
-
-                            + "<button class=\"commentDelBtn\" onClick=\"fnDelClick(" + element._id + ")\" > 삭제 </button>"
-
-                            + "<button class=\"commentEditBtn\" onClick=\"fnEditClick(" + element._id + ")\" > 수정 </button>"
+                            + element.name
                             + "</span>"
-                            + "<span class=\"commentDate\">"
-                            + "<input type=\"text\" name=\"commentDate\" value=\'" +element.time + "\'>"
-                            + "</span>"
-                            + "<div class=\"commentText\" id= \'" + element._id + "\' >"
-                            + element.content
+                        if(element.name == "${user.username}" ) {
+                            str=str
+                                +"<span class=\"buttonSpan\">"
+                                + "<button class=\"btn btn-outline-secondary\" onClick=\"fnDelClick(" + element._id + ")\" style=' font-size: 13px;width: 55px; height: 30px;'> 삭제 </button>"
+                                + "<button class=\"btn btn-outline-secondary\" onClick=\"fnEditClick(" + element._id + ")\"style=' font-size: 13px;width: 55px; height: 30px;' > 수정 </button>"
+                                +"</span>"
+                        }
+
+                        str=str
+                            + "<div class=\"commentText\" id= \'" + element._id + "\' style= \"white-space:pre-wrap\" >"
+                            +  element.content
                             + "<br>"
                             + "</div>"
                             + "</div>"
-                            + "</div>"
-
-                        <%--str +=--%>
-                        <%--    + '<div class="commentBox">' +'' +'</div>'--%>
-                        <%--    + '<div class="commentIcon">' +'' +'</div>'--%>
-                        <%--    + '<span class="comWirter">' + element.username + '</span>'--%>
-                        <%--    + '<span class="commentdate">' + element.time + '</span>'--%>
-                        <%--    + '<div class="commentText">' + element.content + '</div>';--%>
-
-                        <%--&lt;%&ndash;if(element.username=="${}"){&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;    str=str+   '<button name="commentEdit" type="button" class="commentEdit" >수정</button>'&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;        +  '<button name="commentDel" type="button" class="commentDel" >삭제</button>';&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;}&ndash;%&gt;--%>
-                        <%--str = str + '</div>'--%>
-                        <%--    + '</div>';--%>
+                            + "</li>"
                     })
+                    //페이징
+                    if (prev === true){
+                        paging+="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+startPageNum -1 +");\" return false; class=\"page-link\" id=\"prev\">이전</a></li>"
+                            +"<span aria-hidden=\"true\"></span>"
+                    }
+                    for(let num=startPageNum; num<=endPageNum; num++){
+                        if (select != num){
+                            paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+num+");\" return false; class=\"page-link\">"+num+"</a></li>"
+                        }else{
+                            paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" + \" return false; class=\"page-link\"><p>"+num+"</p></li>"
+                        }
+                        if (next === true) {
+                            paging += "<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList(" + endPageNum +1 + ");\" return false; class=\"page-link\" id=\"prev\">다음</a></li>"
+                                + "<span aria-hidden=\"true\"></span>"
+                        }
+                    }
+                    console.log(paging);
+                    document.getElementById('count').textContent = commentCount;
                     document.getElementById('commentListBox').innerHTML += str;
-                }
-            });
+                    document.getElementById('pagingBox').innerHTML += paging;
+                } //리스트조회
+            })
         }
-
+        //작성버튼
         $(document).ready(function() {
             $('#commentWriteButton').click(function () {
-
-                let commentWriteData =
-
-                    {
-                        username: $('#commName').val(),
-                        content_id: content_id,
-                        // time: $('#commTime').val(),
-                        content: $('#commContent').val()
-                    }
-
-                console.log(commentWriteData);
-
-
+                let commentWriteData = {
+                    'username': $('#commName').val(),
+                    'content_id': content_id,
+                    'content': $('#commContent').val(),
+                    'menu_id': menu_id
+                }
                 $.ajax({
                     url: "/comment/writeComment",
                     type: "post",
-                    data: commentWriteData,
+                    data:  commentWriteData,
                     error: function (xhr) {
-                        console.log("error html = " + xhr.statusText);
-                        console.log("error");
-
                     },
-                    success: function (commentWriteData) {
-                        console.log(commentWriteData);
+                    success: function (data) {
                         $("#commentListBox").empty();
-                        fnCommentList();
+                        fnCommentList(num);
                         $("#commContent").val('');
+                        document.getElementById('countNum').innerHTML = '( 0/ 300)';
                     }
                 });
-
-
             }); //등록버튼
         });
+
         //삭제버튼
         function fnDelClick(_id) {
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa")
-
             $.ajax({
                 url: "/comment/deletecomment/",
                 type: "post",
-                data: {"_id" : _id},
-                dataType: "json",
-
+                data: {"_id" : _id,
+                    "menu_id": menu_id },
                 error: function (xhr) {
-                    console.log("data");
-                    console.log("error html = " + xhr.statusText);
-                    console.log("error");
-
                 },
                 success: function (result) {
-
                     $("#commentListBox").empty();
-                    fnCommentList();
+                    fnCommentList(num);
                 }
             });
-        }
+        } //삭제버튼
 
         //수정버튼
         function fnEditClick(_id) {
-
             var content = document.getElementById(_id)
             let updateform = "";
-
-            updateform += "<input type=\"hidden\" id=\"updateCommName\" name=\"username\" value=\"1234\">";
+            updateform += "<input type=\"hidden\" id=\"updateCommName\" name=\"username\" value=\"${user.username}\">";
             updateform += "<input type=\"hidden\" id=\"updateComm_id\" name=\"_id\" value= _id>";
             updateform += "<textarea id=\"updateCommentInput\" name=\"updateCommentContent\" cols=\"80\" rows=\"3\">";
             updateform += content.textContent
             updateform += "</textarea>";
-            updateform += "<button class=\"commentUpdateBtn\" onClick=\"fnCommentUpdate(" + _id + ")\"> 수정 </button>";
-            updateform += "<button class=\"commentUpdateCancelBtn\" onClick= \"fnCommentUpdateCancel()\" > 취소 </button>";
-
+            updateform += "<button class=\"btn btn-outline-secondary\" onClick=\"fnCommentUpdate(" + _id + ")\"> 수정 </button>";
+            updateform += "<button class=\"btn btn-outline-secondary\" onClick= \"fnCommentUpdateCancel()\" > 취소 </button>";
             document.getElementById(_id).innerHTML = updateform;
         }
 
         function fnCommentUpdate(_id) {
-            console.log("뿅");
-            let commentUpdateData =
-
-                {
-                    _id: _id,
-                    username: $('#updateCommName').val(),
-                    content: $('#updateCommentInput').val(),
-
-                }
-            console.log(commentUpdateData);
+            let commentUpdateData = {
+                'username': $('#updateCommName').val(),
+                'content': $('#updateCommentInput').val(),
+                'menu_id': menu_id,
+                '_id': _id
+            }
             $.ajax({
                 url: "/comment/updatecomment/",
                 type: "post",
                 data: commentUpdateData,
-                dataType: "json",
                 error: function (xhr) {
-
-                    console.log("data"+deldata);
-                    console.log("error html = " + xhr.statusText);
-                    console.log("error");
-
+                    alert("?");
                 },
-                success: function (data) {
-                    console.log("data"+data);
-                },
-                success: function (data) {
-                    // location
-                    // $('#commentListBox').load()
 
+                success: function (data) {
                     $("#commentListBox").empty();
-                    fnCommentList();
+                    fnCommentList(num);
                 }
-
             })
-
         }
         function fnCommentUpdateCancel(){
             $("#commentListBox").empty();
-            fnCommentList();
+            fnCommentList(num);
         }
 
-
     </script>
-
 </head>
-<body>
-<div class="commentCount"> 댓글 <span id = "count">0</span></div>
-<!--댓글 리스트 -->
-<%--            <input type="hidden" name="content_id" value= "1" >--%>
-<div class="commentListBox" id="commentListBox">
-    <%--            <div class="commentBigBox" >--%>
-    <%--                <input type="hidden" name="_id" value="1">--%>
-    <%--                <div class="commentIcon">--%>
-    <%--                    <span class="material-icons-outlined">--%>
-    <%--                        android--%>
-    <%--                    </span>--%>
-    <%--                </div>--%>
-    <%--                <div class="commentBox">--%>
-    <%--                    <span class="comWriter">--%>
-    <%--                            <input type="text" id="comWriter" name="comWriter" >--%>
-    <%--                    </span>--%>
-    <%--                        <!-- 버튼은 등록자 본인만 -->--%>
+<div class="container">
 
-    <%--                        <button class="delBtn" _id="" > 삭제 </button>--%>
+<br>
+<div class="commentCount"> 댓글 <span id = "count"></span></div>
+<br>
+<%--댓글리스트 출력부--%>
+<ul class="list-group list-group-flush" id="commentListBox">
 
+</ul>
+<%--댓글페이징--%>
+<nav aria-label="Page navigation">
+    <div class="center">
+        <ul class="pagination" id="pagingBox">
 
-    <%--                        <button > 수정 </button>--%>
+        </ul>
+    </div>
+</nav>
 
-    <%--                    <span class="commentDate">--%>
-    <%--                        <input type="text" name="commentDate">--%>
-    <%--                    </span>--%>
-    <%--                    <div class="commentText">--%>
-
-    <%--                        <br>--%>
-    <%--                    </div>--%>
-    <%--                </div>--%>
-
-
-</div>
-</div>
 
 
 
@@ -266,16 +232,17 @@
 
 <div class="commentInputBox">
     <%--            <form  action="/comment/writeComment" id="writecom1" method="post" >--%>
-    <input type="hidden" id="commName" name="username" value="1234">
+    <input type="hidden" id="commName" name="username" value="${user.username}">
     <%--            <input type="hidden" id="commCont_id" name="content_id" value="1">--%>
     <%--            <input type="hidden" id="commTime" name="time" value="">--%>
-    <textarea class="commentInput" id="commContent" name="content" cols="80" rows="3" ></textarea>
-    <div class="countNum">
+    <textarea class="commentInput" id="commContent" name="content" cols="70" rows="3" ></textarea>
+    <span class="regBtn">
+        <button type="submit" class="btn btn-secondary btn-lg" id= commentWriteButton > 등록</button>
+    </span>
+    <br>
+    <span id="countNum">
         ( 0/ 300)
-    </div>
-    <div class="regBtn">
-        <input type="submit" id= commentWriteButton value="등록">
-    </div>
+    </span>
     <%--            </form>--%>
 </div>
 
@@ -283,7 +250,7 @@
 <script>
 
     $('.commentInput').on('keyup', function() {
-        $('.countNum').html("("+$(this).val().length+" / 300)");
+        $('#countNum').html("("+$(this).val().length+" / 300)");
 
         if($(this).val().length > 300) {
             $(this).val($(this).val().substring(0, 300));
@@ -293,6 +260,4 @@
     });
 </script>
 
-</body>
-
-</html>
+</div>

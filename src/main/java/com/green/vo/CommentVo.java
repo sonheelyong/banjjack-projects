@@ -9,17 +9,46 @@ public class CommentVo {
     private String content;
     private String time;
     private String username;
+    private int menu_id;
+    private int commentcount;
+    private String profiledata;
 
-
-    public CommentVo(int _id, int content_id, String content, String time, String username) {
+    public CommentVo(int _id, int content_id, String content, String time, String username, int menu_id, int commentcount, String profiledata) {
         this._id = _id;
         this.content_id = content_id;
         this.content = content;
         this.time = time;
         this.username = username;
+        this.menu_id = menu_id;
+        this.commentcount = commentcount;
+        this.profiledata = profiledata;
     }
 
     public CommentVo() {
+    }
+
+    public String getProfiledata() {
+        return profiledata;
+    }
+
+    public void setProfiledata(String profiledata) {
+        this.profiledata = profiledata;
+    }
+
+    public int getCommentcount() {
+        return commentcount;
+    }
+
+    public void setCommentcount(int commentcount) {
+        this.commentcount = commentcount;
+    }
+
+    public int getMenu_id() {
+        return menu_id;
+    }
+
+    public void setMenu_id(int menu_id) {
+        this.menu_id = menu_id;
     }
 
     public int get_id() { return _id;  }
@@ -68,8 +97,9 @@ public class CommentVo {
                 ", content='" + content + '\'' +
                 ", time='" + time + '\'' +
                 ", username='" + username + '\'' +
+                ", menu_id=" + menu_id +
+                ", commentcount=" + commentcount +
+                ", profiledata='" + profiledata + '\'' +
                 '}';
     }
-
-
 }

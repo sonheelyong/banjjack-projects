@@ -6,19 +6,31 @@
 <head>
     <meta charset="UTF-8">
     <title>자유게시판</title>
-
+    <%@ include file="/WEB-INF/views/header.jsp" %>
     <style>
 
+        td                {padding:2px}
+        td:nth-of-type(1) {width:75px;}
+        td:nth-of-type(2) {width:70px;}
+        #content          {height:500px; width:700px;  text-align:left; vertical-align:top; padding: 10px;}
+        .left             { text-align:left !important;}
+        .center           { text-align:center !important;}
+        .right            { text-align:right !important;}
+        .rounded-pill     {background:#fdf100;}
+        .title            {border-bottom: 1pt solid black;}
+
+        .layer            { text-align: center; }
+        .layer .content   { display: inline-block; }
+
+        .buttons{width:60px;height:30px}
     </style>
 
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
-        let query = window.location.search;
-        let param = new URLSearchParams(query);
-        let id= param.get('_id');
-        console.log(id);
-
-        window.onload = function(){
+        let readquery = window.location.search;
+        let readparam = new URLSearchParams(readquery);
+        let id= readparam.get('_id');
+        let uname= "이리오너라아아아아아";
+        $(document).ready(function(){
             $.ajax({
                 url: '/getCommunityRead',
                 data: {
@@ -26,29 +38,26 @@
                 },
                 type: "get",
                 error: function (xhr) {
-                    console.log("error html = " + xhr.statusText);
                 },
                 success: function (data) {
-                    console.log(data);
-                    let str="";
                     $.each(data, function(index, element)
                     {
                         $('#_id').text(element._id);
+                        $('#tag').text(element.tag);
                         $('#username').text(element.username);
                         $('#title').text(element.title);
                         $('#time').text(element.time);
                         $('#readcount').text(element.readcount);
                         $('#content').text(element.content);
+                        uname = element.username
+                        fnUDButtonshow()
                     })
-
                 }
             })
-        }
+        })
         function fnEdit(){
-            console.log("id"+id);
             var url = "<c:url value="/communityUpdateForm"/>";
             url = url +"?_id="+id;
-            console.log(url);
             window.location.href = url;
         }
 
@@ -61,37 +70,69 @@
                     '_id' : id
                 },
                 error: function (xhr) {
-                    alert("f")
-                    console.log("data");
-                    console.log("error html = " + xhr.statusText);
-                    console.log("error");
+
 
                 },
                 success: function (data) {
-                    alert("s")
-                    console.log("data");
+
                     location.href = "/communityList"
                 }
 
 
             })
         }
+        function fnUDButtonshow(){
+            let   str2=""
+            if (uname==="${user.username}") {
+                str2=str2
+                    +"<button class =\"buttons\" id=\"edit\" onClick=\"fnEdit($('id'))\"> 수정 </button>"
+                    +"<button class = \"buttons\" id=\"delete\" onClick=\"fnDelete($('id'))\"> 삭제 </button>"
+            }
+            document.getElementById("UDButton").innerHTML += str2;
+        }
     </script>
 </head>
-<body>
-<div id="view">
-    <span id="_id">_id:</span>
-    <span id="username">username:</span>
-    <span id="title">title:</span>
-    <span id="time">time:</span>
-    <span id="readcount">readcount:</span>
-    <div id="content">content:</div>
+<body style="background-color: white">
+
+<div class="layer">
+    <div class="btn-group layer" role="group" aria-label="Basic outlined example">
+        <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
+        <a  href="/communityList" class="btn btn-outline-primary"> 자유게시판 </a>
+        <a  href="#" class="btn btn-outline-primary">반려자랑 </a>
+        <a  href="#" class="btn btn-outline-primary"> 질문게시판 </a>
+    </div>
+</div>
+
+<div id="view" class="layer">
+    <table class="content">
+        <tr>
+            <td id="tag" class="rounded-pill center">tag:</td>
+        </tr>
+        <tr>
+            <td colspan="6" class="left border-bottom"> <h2> <span id="title" >title:</span> </h2> </td>
+        </tr>
+        <tr>
+            <td class="right border-bottom bg"> 작성자 : </td>
+            <td class="left border-bottom bg"> <span id="username">username:</span> </td>
+            <td class="right border-bottom bg"> 조회수 : </td>
+            <td class="left border-bottom bg"> <span id="readcount">readcount:</span> </td>
+            <td class="right border-bottom bg"> 작성일 : </td>
+            <td class="left border-bottom bg"> <span id="time">time:</span> </td>
+        </tr>
+        <tr>
+            <td colspan="6" class="border-bottom"> <div id="content">content:</div> </td>
+        </tr>
+    </table>
 
 </div>
-<button id="edit" onClick="fnEdit($('id'))"> 수정 </button>
-<button id="delete" onClick="fnDelete($('id'))"> 삭제 </button>
+<div id="UDButton"></div>
+<button class=\"buttons"\ id="goList" onClick="location.href='/communityList'" >목록</button>
 </body>
 
+<c:import url="/comment" >
+    <c:param name="content_id" value="${id}"/>
+    <c:param name="menu_id" value="1"/>
+</c:import>
 </body>
 
 </html>

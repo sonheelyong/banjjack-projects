@@ -7,11 +7,13 @@ import java.util.Map;
 
 public interface CommentDao {
 
-   List<CommentVo> getCommentList(int content_id);
+   List<CommentVo> getCommentList(Map<String, Object> map);
+
+   int listCount(int num, int menu_id, int content_id);
 
    void commentUpdate(Map<String, Object> map);
 
-   void commentDelete(int _id);
+   void commentDelete( CommentVo  commentVo);
 
    void writeComment(CommentVo commentVo);
 
