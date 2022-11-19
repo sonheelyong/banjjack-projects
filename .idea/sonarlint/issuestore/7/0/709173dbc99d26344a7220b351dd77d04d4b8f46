@@ -1,0 +1,28 @@
+
+c
+java:S1192."FDefine a constant instead of duplicating this literal "title" 4 times.(ï¨†8÷ŠãÙÈ0
+c
+java:S1192T"HDefine a constant instead of duplicating this literal "content" 3 times.(”õÏíûÿÿÿÿ
+]
+java:S1192q"GDefine a constant instead of duplicating this literal "result" 6 times.(²ÚßÌ
+f
+java:S11921"JDefine a constant instead of duplicating this literal "readcount" 3 times.(¢ç38öŠãÙÈ0
+^
+java:S1192q"HDefine a constant instead of duplicating this literal "success" 3 times.(²ÚßÌ
+f
+java:S1192-"IDefine a constant instead of duplicating this literal "username" 3 times.(„ÓÔ¼8÷ŠãÙÈ0
+k	java:S117H"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ÄÇŞıÿÿÿÿ
+k	java:S117["QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( ş“’ûÿÿÿÿ
+k	java:S117}"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ°°üÿÿÿÿ
+l	java:S117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğ‘Îÿÿÿÿÿ
+l	java:S117¬"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ã÷Œ½ıÿÿÿÿ
+{
+java:S4144}"`Update this method so that its implementation is not identical to "getCommunityRead" on line 72.(Æ°°üÿÿÿÿ
+U	java:S106&"9Replace this use of System.out or System.err by a logger.(½îŸ8™‹ãÙÈ0
+o	java:S1009"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“Ôäºÿÿÿÿÿ8‹ãÙÈ0
+8
+java:S1116’"Remove this empty statement.(ôŸìúÿÿÿÿ
+R
+java:S1128"0Remove this unused import 'com.green.vo.UserVo'.(†„§äşÿÿÿÿ8…÷ÚÈ0
+H
+java:S1128"+Remove this unused import 'java.sql.Array'.(Õø‹ù8…÷ÚÈ0
