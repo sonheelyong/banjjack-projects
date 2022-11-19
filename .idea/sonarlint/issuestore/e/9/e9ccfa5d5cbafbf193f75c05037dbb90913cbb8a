@@ -1,0 +1,56 @@
+
+h	java:S112µ"FDefine and throw a dedicated exception instead of using a generic one.(ºµÜ¢şÿÿÿÿ8Êç²ÙÈ0
+_
+java:S1192Ü"HDefine a constant instead of duplicating this literal "/mypage" 3 times.(¶İ‚½
+b
+java:S1192„"FDefine a constant instead of duplicating this literal "error" 5 times.(’²½Ìøÿÿÿÿ
+]
+java:S1192'"GDefine a constant instead of duplicating this literal "login" 11 times.(¿˜ˆÇ
+h
+java:S1192o"MDefine a constant instead of duplicating this literal "userpassword" 5 times.(ˆ«ô°üÿÿÿÿ
+a
+java:S1192("KDefine a constant instead of duplicating this literal "redirect:/" 3 times.(äÔ¶½
+d
+java:S1192„"HDefine a constant instead of duplicating this literal "message" 5 times.(’²½Ìøÿÿÿÿ
+f
+java:S11920"PDefine a constant instead of duplicating this literal "redirect:/login" 5 times.(ØÆŠú
+d
+java:S1192"HDefine a constant instead of duplicating this literal "/findId" 3 times.(»Ÿæüÿÿÿÿ
+e
+java:S1192n"JDefine a constant instead of duplicating this literal "username" 10 times.(¸Ì¤Òùÿÿÿÿ
+g	java:S117‹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Ã¹¤
+g	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(À°ö‰
+x
+java:S1488R"]Immediately return this expression instead of assigning it to the temporary variable "count".(Úí²§ıÿÿÿÿ
+s
+java:S1488Z"]Immediately return this expression instead of assigning it to the temporary variable "count".(Ù®óÜ
+}
+java:S1488"fImmediately return this expression instead of assigning it to the temporary variable "UserprofileImg".(À°ö‰
+Q
+java:S2441x"<Make "UserVo" serializable or don't store it in the session.(­òºi
+W
+java:S1854¶"@Remove this useless assignment to local variable "userpassword".(ÒğÎ
+H
+java:S1481¶"1Remove this unused "userpassword" local variable.(ÒğÎ
+S
+java:S2441Ğ"<Make "UserVo" serializable or don't store it in the session.(áÖ¬
+ƒ
+java:S1130è"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(ûàµ¤
+S
+java:S2441û"<Make "UserVo" serializable or don't store it in the session.(áÖ¬
+S
+java:S2441™"<Make "UserVo" serializable or don't store it in the session.(áÖ¬
+
+java:S1130µ"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ºµÜ¢şÿÿÿÿ8Æè²ÙÈ0
+Y	java:S125¹"<This block of commented-out lines of code should be removed.(–¾Íâ8Çè²ÙÈ0
+i	java:S100Û"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢Éìîùÿÿÿÿ
+W	java:S125è"<This block of commented-out lines of code should be removed.(±ì¦øÿÿÿÿÿ
+d	java:S100‹"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ²««
+M
+java:S1854"6Remove this useless assignment to local variable "vo".(²‚Ç
+>
+java:S1481"'Remove this unused "vo" local variable.(²‚Ç
+U
+java:S1128"3Remove this unused import 'com.green.vo.ProfileVo'.(êƒÈöÿÿÿÿÿ8èôÚÈ0
+M
+java:S1128"+Remove this unused import 'java.util.UUID'.(ÀãÄ£úÿÿÿÿ8èôÚÈ0
