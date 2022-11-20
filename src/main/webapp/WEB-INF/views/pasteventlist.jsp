@@ -61,7 +61,7 @@
 
                     html         += "<div class='col-3'>";
                     html         += '<div class="card" style="width: 17rem; margin: 0 900px 0 20px;”">'
-                    html         += '<a href ="/eventcont?_id='+_id +'"><img src="/img/dog.jpeg"  class="card-img-top" style="width:100%; height:130px;"></a>'
+                    html         += '<a href ="/eventcont?_id='+_id +'"><img src="http://donipop.com:8000/img/' + eventimage + '"  class="card-img-top" style="width:100%; height:130px;"></a>'
                     html         += '<div class="card-body">'
                     html         += '<h5 class="card-title"><a href ="/eventcont?_id='+_id +'">' + title + '</a></h5>'
                     html         += '</div>'

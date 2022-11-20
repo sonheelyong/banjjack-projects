@@ -113,18 +113,12 @@ f
 6src/main/java/com/green/dao/impl/CommunityDaoImpl.java,1\6\166a8437ae79f06b5a8f05b64f359d7141a6d752
 e
 5src/main/java/com/green/service/CommunityService.java,f\d\fd45fd72f35297109807a5300f00335afe6d27a0
-e
-5src/main/webapp/WEB-INF/views/communityUpdateForm.jsp,2\9\291d6262255b58ba122cca1441db010ff43f2426
 [
 +src/main/webapp/WEB-INF/views/eventcont.jsp,b\3\b3c23f79eb39f33259cf149913c877b33127e9a3
 a
 1src/main/webapp/WEB-INF/views/eventupdateForm.jsp,3\f\3f2a955ed10ce1af02010bb03bff1633420a9f8c
 b
 2src/main/webapp/WEB-INF/views/findPasswdUpdate.jsp,8\1\810ce7e113e083cba409beeac67fcfef449e298e
-^
-.src/main/webapp/WEB-INF/views/noweventlist.jsp,a\2\a2e2f31c299594ec43d3305f32d1bf4de86bba30
-_
-/src/main/webapp/WEB-INF/views/pasteventlist.jsp,8\5\85fe91cbaf4d6b6489b51bf29243c8a9aab88b0b
 X
 (src/main/webapp/WEB-INF/views/update.jsp,c\8\c8e6a023eeb2db0e794f09af1161aa96dd8c6af2
 V
@@ -153,7 +147,5 @@ a
 0src/main/java/com/green/service/NoteService.java,d\5\d5e484e0ed6fcfdfe7a88d9173690f6fe0000537
 V
 &src/main/java/com/green/vo/NoteVo.java,a\3\a3edada919a2e687b61c136369c8b801b1e152c4
-g
-7src/main/java/com/green/controller/EventController.java,0\3\03e159596582c9f6ec0df4bedc59868fc5e8ddc8
 [
 +src/main/webapp/WEB-INF/views/writeNote.jsp,a\a\aa7b8ba9bfa0fc75bf838f8f04e2d8d009be40bc

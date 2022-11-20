@@ -38,8 +38,13 @@
 
             createBanjjakDom();
 
+            
 
         }
+        function show(username){
+            window.open("/writeNoteForm?reply="+ username, "note", "width=880, height=650");
+            }
+
         function createBanjjakDom(){
             //c.username, c.usernickname, c.userpetinfo, p.profiledata
             let usernickname = '';
@@ -52,14 +57,22 @@
                 type: "GET",
                 dataType: "json",
             }).done(function (data) {
-                console.log(data);
+                //console.log(data);
+                
                 for(let i = 0; i < data.length; i++){
-                    let content = '<div class="col-lg-4 btn">'+
+                    if(data[i].userpetinfo == null){
+                    userpetinfo = '반려동물 정보가 없습니다.';
+                    }else{
+                        userpetinfo = data[i].userpetinfo;
+                    }
+                    
+                    let content = '<div class="col-lg-4 btn" type="button" onclick="show(\'' + data[i].username + '\');">'+
                     '<img class="bd-placeholder-img rounded-circle" width="140" height="140" src="http://donipop.com:8000/img/' + data[i].profiledata + '">'+
                     '<h2 class="fw-normal">' + data[i].usernickname + '</h2>'+
-                    '<p>' + data[i].userpetinfo + '</p>'+
+                    '<p>' + userpetinfo + '</p>'+
                     '</div>'
                     row.innerHTML += content;
+
                 }
             }).fail(function (error) {
                 console.log("error : " + error);
@@ -68,6 +81,8 @@
 
             
         }
+
+        
     </script>
 </body>
 </html>
