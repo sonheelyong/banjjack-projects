@@ -77,7 +77,7 @@
 <div class="container">
   <div class="layer">
     <div class="btn-group layer" role="group" aria-label="Basic outlined example">
-      <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
+      <a  href="/communityList?tag=100" class="btn btn-outline-primary"> 인기글 </a>
       <a  href="/communityList?tag=0" class="btn btn-outline-primary"> 전체 </a>
       <a  href="/communityList?tag=1" class="btn btn-outline-primary"> 자유게시판 </a>
       <a  href="/communityList?tag=2" class="btn btn-outline-primary">반려자랑 </a>
@@ -113,7 +113,6 @@
     <tr>
       <td colspan="3">
         <button id="writebutton" class="btn btn-primary" onClick="fnWriteClick()">작성</button>
-        <a href="/communityList" class="btn btn-primary">게시판</a>
       </td>
     </tr>
   </table>
