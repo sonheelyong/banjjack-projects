@@ -6,13 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <title>마이페이지</title>
+    <%@ include file="/WEB-INF/views/header.jsp"%>
 
     <style>
         *     { box-sizing:border-box;  }
 
         body  { text-align: center;
             align-items: center;
-            padding-top: 40px;
             padding-bottom: 40px;
             background-color: #f5f5f5;}
 
@@ -54,23 +54,23 @@
         }
 
 
-        div  { width: 100%; text-align: center; padding: 0;}
 
 
         a { text-decoration: none; font-size: 16px; }
 
-        div:nth-child(n+10):nth-child(-n+14) { display: inline; }
+        div:nth-child(n+12):nth-child(-n+19) { display: inline; }
 
         .con { width:100% }
 
         #form1 { width:100%; }
-        input { width: 50%; }
+        input, textarea { width: 50%; }
+
         #btnUpdate { border: 1px solid; margin-top: 20px; margin-bottom: 30px; width: 20%; }
 
-        hr  {  margin-bottom:70px; }
+        hr  { margin-bottom:70px;  }
 
 
-        .mypagelabel { margin-top: 50px; }
+        .mypagelabel { margin-top: 20px; }
 
 
         #preview { width: 150px; height: 150px; border-radius: 40px;}
@@ -87,16 +87,18 @@
 
         .myPageForm .idlavel { margin-left: 8px; margin-right: -10px;}
 
+        .myPageForm #userpetinfo { width: 70%; height: 300px;}
 
+        .myPageForm .label1 { margin-top: 30px; margin-bottom: 20px;}
 
+        .myPageForm #test_cnt { margin-left: 60%; }
 
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
 
         window.onload = function() {
             const form = document.querySelector('form');
-            const text = $('unicknameCheck').text('');
+
             form.addEventListener('submit', function(e) {
                 if(usernickname.value == '') {
                     e.preventDefault();
@@ -108,22 +110,17 @@
                     alert('지역(시/도)를 입력해주세요.');
                     usersido.focus();
 
-                } else if(usergugun.value == '') {
-                    e.preventDefault();
-                    alert('지역(구/군/동/읍/면/리)를 입력해주세요.');
-                    usergugun.focus();
-
-                } else if(userpet.value == '') {
-                    e.preventDefault();
-                    alert('반려동물을 입력해주세요.');
-                    userpet.focus();
-
                 } else if($('#unicknameCheck').text() != '사용가능한 닉네임입니다.' && $('#unicknameCheck').text().length != 0 && usernickname.value > 2) {
                     console.log( $('#unicknameCheck').text().length);
                     e.preventDefault();
                     alert('닉네임 형식이 올바르지 않습니다.');
                     usernickname.value = '';
                     usernickname.focus();
+
+                } else if($('#userpet').val() != null && $('#userpetinfo').val() == '') {
+                    e.preventDefault();
+                    alert('반려동물 정보를 입력해주세요!');
+                    userpetinfo.focus();
 
                 } else {
                     let result = confirm('회원정보를 수정하시겠습니까?');
@@ -146,8 +143,6 @@
             });
 
 
-            $('usernickname').on('')
-
             $('#usernickname').on('change keyup', function() {
                 const usernickname = document.getElementById('usernickname').value.length;
                 if(usernickname >= 2) {
@@ -163,6 +158,10 @@
             $('#userpet').attr('readonly', 'readonly');
             $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
 
+            if($('#userpetinfo').val() != null) {
+                $('#test_cnt').html("("+$('#userpetinfo').val().length+" / 300)");
+            }
+
             // 콤보박스 > input text박스
             $('#selectPet').on('change', function(e) {
 
@@ -173,7 +172,7 @@
                 }
 
                 if($('#selectPet').val() == '반려동물') {
-                    $('#userpet').attr('value', '');
+                    $('#userpet').attr('value', '${user.userpet}');
                     $('#userpet').attr('readonly', 'readonly');
                     $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
                 }
@@ -185,8 +184,21 @@
 
                 }
 
+            });
 
-            })
+
+            $('#userpetinfo').on('keyup', function() {
+                $('#test_cnt').html("("+$(this).val().length+" / 300)");
+
+                if($(this).val().length > 300) {
+                    $(this).val($(this).val().substring(0, 300));
+                    $('#test_cnt').html("(300 / 300)");
+                    alert("300자 이내로 입력 가능");
+                }
+
+            });
+
+
         }// window.onload end
 
 
@@ -302,6 +314,7 @@
 
 
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
 <main class="form-signin w-100 m-auto">
@@ -342,7 +355,14 @@
                     <span id="petCheck"></span>
                 </div>
 
-                <div><input type="submit"  class="btn btn-primary" id="btnUpdate" name="btnUpdate" value="수정"/></div>
+                <div><h5 class="label1">< 반려동물 정보 ></h5></div>
+                <div class="userpetdiv">
+                    <textarea id="userpetinfo" name="userpetinfo" placeholder="소중한 우리아이의 정보를 입력해주세요!&#13;&#10;이름/나이/성별/특기/좋아하는것/싫어하는것 등등&#13;&#10;다양하게 적어주세요!
+                                                                                &#13;&#10;소개를 통해 반짝이는 짝을 찾아보세요!" style="resize:none;">${user.userpetinfo}</textarea>
+                </div>
+                <div id="test_cnt">(0 / 300)</div><br>
+
+                <div><input type="submit"  class="btn btn-primary" id="btnUpdate" name="btnUpdate" value="수정"/></div><br>
                 <div><a href="/" id="cancleUpdate">취소</a></div>
                 <div><span>⏐</span></div>
                 <div><a href="/myPagePasswdForm" id="goMyPagePasswd">비밀번호변경</a></div>

@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.cert.TrustAnchor;
+
 @Log
 public class AuthInterceptor implements HandlerInterceptor {
     // preHandle
@@ -54,10 +56,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             Object handler,
             ModelAndView mv) throws Exception {
 
-        if(response.getHeader("Content-Type") != null && response.getHeader("Content-Type").contains("application/json")) {
+        if(request.getHeader("Content-Type") != null && request.getHeader("Content-Type").contains("application/json") || request.getHeader("X-Requested-With") != null) {
             return;
         }
-
         System.out.println(request.getRequestURL());
         HttpSession session = request.getSession();
         UserVo userVo = (UserVo) session.getAttribute("login");

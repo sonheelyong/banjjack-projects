@@ -17,7 +17,7 @@
     </style>
 
     <script>
-
+    var send;
 
         var cnt = 0;
         $(function(){
@@ -41,6 +41,7 @@
 
             $('form').on('submit', function(e){
                 cnt ++;
+                sockSend(send, "1대1문의 답변이 왔습니다.");
                 alert("1대1문의 답변 보냄")
                 if(cnt>1){
                     e.preventDefault();
@@ -65,7 +66,7 @@
 
             });
         });
-
+        
         $.ajax( {
             url  :  '/replyinquiry?_id=${_id}' ,
 
@@ -80,7 +81,7 @@
                 var title = result[0].title
                 var category = result[0].category
                 var content = result[0].content
-                var send = result[0].send
+                send = result[0].send
                 var time = result[0].time
                 var bnum = result[0].bnum
                 var lvl = result[0].lvl

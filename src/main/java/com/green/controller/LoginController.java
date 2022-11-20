@@ -45,7 +45,7 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("login");
-        return "redirect:/login";
+        return "redirect:/";
     }
 
 
@@ -65,9 +65,10 @@ public class LoginController {
                              @RequestParam("usergugun") String usergugun,
                              @RequestParam("userpet") String userpet,
                              HttpSession session,
-                             String role) {
+                             String role,
+                             String userpetinfo) {
 
-        UserVo userVo = new UserVo(0, username, userpassword, usernickname, useremail, usersido, usergugun, userpet, role);
+        UserVo userVo = new UserVo(0, username, userpassword, usernickname, useremail, usersido, usergugun, userpet, role, userpetinfo);
         userService.insertInfo(userVo);
 
 
@@ -79,8 +80,16 @@ public class LoginController {
     @GetMapping("/getUser")
     @ResponseBody
     public int getuser(@RequestParam("username") String username) {
+
+        int leaveUsername = leaveUserService.leaveUsernameCheck(username);
+        System.out.println("탈퇴: " + leaveUsername);
         int count = userService.usernameCheck(username);
-        return count;
+
+        if( leaveUsername == 1 && count != leaveUsername) {
+            return leaveUsername;
+        } else {
+            return count;
+        }
     }
 
     // 닉네임 중복확인 (ajax)
@@ -228,6 +237,7 @@ public class LoginController {
                          @RequestParam("usersido")     String usersido,
                          @RequestParam("usergugun")    String usergugun,
                          @RequestParam("userpet")      String userpet,
+                         @RequestParam("userpetinfo")  String userpetinfo,
                          HttpSession session,
                          Model model) throws IOException {
 
@@ -240,11 +250,13 @@ public class LoginController {
         map.put("usersido", usersido);
         map.put("usergugun", usergugun);
         map.put("userpet", userpet);
+        map.put("userpetinfo", userpetinfo);
 
         userService.mypageUsernicknameUpdate(map);
         userService.mypageUsersidoUpdate(map);
         userService.mypageUsergugunUpdate(map);
         userService.mypageUserpetUpdate(map);
+        userService.mypageUserpetinfoUpdate(map);
 
         UserVo user = userService.getUserInfo(username);
         user.setUserpassword("0");

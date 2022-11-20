@@ -10,6 +10,9 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <!-- sockJS -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
     <style>
         h3{margin-top: 10px; padding: 5px; border-bottom: solid 2px #516e7f;font-size: 20px;}
         #main_content{width: 90%; height: 80%; margin: 0 auto;}
@@ -21,6 +24,13 @@
     </style>
 
     <script>
+    var socket  = null;
+        $(document).ready(function(){
+            // 웹소켓 연결
+            sock = new SockJS("http://localhost:8080/ws/");
+            socket = sock;
+        });
+        
         var cnt = 0;
         $(function(){
             $('#sub').on('click', function(e){
@@ -44,6 +54,7 @@
             $('#form').on('submit', function(e){
                 cnt ++;
                 alert("쪽지 보냄")
+                sockSend($('[name=recept]').val(), "쪽지가 도착했습니다.");
                 if(cnt>1){
                     e.preventDefault();
                     e.stopPropagation();
@@ -51,7 +62,7 @@
             })
         });
 
-
+        
 
         $(document).ready(function() {
             $('#test').on('keyup', function() {
@@ -69,7 +80,10 @@
 
 
 
-
+        function sockSend(username, content){
+            let type='message';
+            socket.send(type + ',' + username + ',' + content);
+        }
     </script>
 
 </head>

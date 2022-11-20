@@ -23,7 +23,6 @@
     </style>
 
     <script>
-
         $(function(){
             $('[name=delete]').on('click',function(e){
                 var answer;
@@ -69,7 +68,7 @@
                 console.log ( error );
                 alert('Error:' + error)
             });
-
+        
 
     </script>
 </head>
@@ -106,7 +105,7 @@
                             <textarea class="form-control" name="content" id="cont" rows="13" style="resize: none;" readonly></textarea>
                         </li>
                     </ul>
-                    <input type="submit" class="btn btn-primary" value="답장 보내기" >
+                    <input type="submit" class="btn btn-primary" value="답장 보내기">
                 </div>
             </form>
         </div>

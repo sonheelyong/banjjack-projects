@@ -170,4 +170,18 @@
 
     </delete>
 
+    <select id="idUsername"
+            resultType="String">
+        SELECT userpassword
+        FROM   user_tb
+        WHERE  username = #{username}
+    </select>
+
+    <update id="mypageUserpetinfoUpdate"
+            parameterType="HashMap">
+        UPDATE user_tb
+        SET    userpetinfo = #{userpetinfo}
+        WHERE  username = #{username}
+    </update>
+
 </mapper>

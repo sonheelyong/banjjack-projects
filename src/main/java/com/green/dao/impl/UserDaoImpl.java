@@ -1,6 +1,7 @@
 package com.green.dao.impl;
 
 import com.green.dao.UserDao;
+import com.green.vo.BanjjakVo;
 import com.green.vo.UserVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,7 +125,15 @@ public class UserDaoImpl implements UserDao {
         return sqlSession.selectOne("User.idUsername", username);
     }
 
+    @Override
+    public void mypageUserpetinfoUpdate(HashMap<String, Object> map) {
+        sqlSession.update("User.mypageUserpetinfoUpdate", map);
+    }
+
+    @Override
+    public List<BanjjakVo> selectBanjjak() {
+        return sqlSession.selectList("Banjjak.selectUserBanjjak");
+    }
 
 }
-
 
