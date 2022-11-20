@@ -1,5 +1,6 @@
 package com.green.dao;
 
+import com.green.vo.BanjjakVo;
 import com.green.vo.UserVo;
 
 import java.util.HashMap;
@@ -48,4 +49,8 @@ public interface UserDao {
     void deleteUser(String username);
 
     String idUsername(String username);
+
+    void mypageUserpetinfoUpdate(HashMap<String, Object> map);
+
+    List<BanjjakVo> selectBanjjak();
 }

@@ -67,13 +67,13 @@
                             + "<div class=\"commentIcon\">"
                             + "<span class=\"material-icons-outlined\">"
                         //프로필 임시 주석처리
-                        // if (element.profiledata == '') {
-                        //     str = str
-                        //         + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
-                        // }else{
-                        //     str = str
-                        //         + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
-                        // }
+                        if (element.profiledata == null) {
+                            str = str
+                                + "<img class='avatar-img rounded-circle' id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
+                        }else{
+                            str = str
+                                + '<img class="avatar-img rounded-circle" id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
+                        }
                         str = str
                             + "</span>"
                             + " <br>"
@@ -151,6 +151,8 @@
                             alert("로그인하세요!")
                             window.location.href = "/login";
                         }else {
+                            /////////////////////
+                            sockSend(uname,"\"" + $('#title').text() + "\"게시글에 댓글이 달렸습니다.");
                             $("#commentListBox").empty();
                             fnCommentList(num);
                             $("#commContent").val('');

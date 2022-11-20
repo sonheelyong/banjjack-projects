@@ -38,13 +38,26 @@
                 },
                 type: "get",
                 error: function (xhr) {
+                    console.log(xhr);
                 },
                 success: function (data) {
+                    console.log(data);
                     $.each(data, function(index, element)
                     {
                         $('#_id').text(element._id);
+                        if(element.tag == 1) {
+                            $('#tag').text('자유');
+                        }
+                        if(element.tag == 2) {
+                            $('#tag').text('자랑');
+                        }
+                        if(element.tag == 3) {
+                            $('#tag').text('질문');
+                        }
+                        
+                        $('#_id').text(element._id);
                         $('#tag').text(element.tag);
-                        $('#username').text(element.username);
+                        $('#usernickname').text(element.usernickname);
                         $('#title').text(element.title);
                         $('#time').text(element.time);
                         $('#readcount').text(element.readcount);
@@ -114,7 +127,7 @@
             </tr>
             <tr>
                 <td class="right border-bottom bg"> 작성자 : </td>
-                <td class="left border-bottom bg"> <span id="username">username:</span> </td>
+                <td class="left border-bottom bg"> <span id="usernickname">usernickname:</span> </td>
                 <td class="right border-bottom bg"> 조회수 : </td>
                 <td class="left border-bottom bg"> <span id="readcount">readcount:</span> </td>
                 <td class="right border-bottom bg"> 작성일 : </td>

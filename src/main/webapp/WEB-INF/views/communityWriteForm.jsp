@@ -24,6 +24,28 @@
   <script>
     function fnWriteClick() {
       var tag = document.getElementById('tag');
+
+      if( $('[id=title]').val() == ''){
+        alert('제목을 입력하세요');
+
+        e.preventDefault();
+        e.stopPropagation();
+        return start;
+      }
+      if( $('[id=tag]').val() == '0'){
+        alert('태그를 선택하세요');
+
+        e.preventDefault();
+        e.stopPropagation();
+        return start;
+      }
+      if( $('[id=content]').val() == ''){
+        alert('내용을 입력하세요');
+        e.preventDefault();
+        e.stopPropagation();
+        return start;
+      }
+      
       let writeData =
               {
                 username: $('#username').val(),

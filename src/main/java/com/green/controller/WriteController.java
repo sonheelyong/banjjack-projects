@@ -1,9 +1,8 @@
 package com.green.controller;
 
+import com.green.service.UserService;
 import com.green.service.WriteService;
-import com.green.vo.PageVo;
-import com.green.vo.WriteVo;
-import com.green.vo.FileVo;
+import com.green.vo.*;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,8 +25,12 @@ import java.util.UUID;
 @Controller
 public class WriteController {
 	PageVo page = new PageVo();
+	TimeGap timeGap = new TimeGap();
 	@Autowired
 	private WriteService writeService;
+
+	@Autowired
+	private UserService userService;
 
 	@PostMapping("/writeAction")
 	public String writeAction() {
@@ -50,20 +54,20 @@ public class WriteController {
 
 	@GetMapping("/getlist")
 	@ResponseBody
-	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num, @RequestParam int menu_id) {
+	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num, @RequestParam int menu_id) throws ParseException {
 		int postnum = page.getPostnum();
 		int displayPost = page.getDisplaypost();
-
 		List<WriteVo> writeVo = writeService.getList(category, displayPost, postnum, menu_id);
 
 		List<JSONObject> getList = new ArrayList<>();
 		for (WriteVo vo : writeVo) {
+			timeGap.setTime(vo.getTime());
 			JSONObject data = new JSONObject();
 			data.put("_id", vo.get_id());
 			data.put("title", vo.getTitle());
 			data.put("username", vo.getUsername());
 			data.put("category", vo.getCategory());
-			data.put("time", vo.getTime());
+			data.put("time", timeGap.getTime());
 			data.put("readcount", vo.getReadcount());
 			data.put("bnum", vo.getBnum());
 			data.put("lvl", vo.getLvl());
@@ -227,6 +231,30 @@ public class WriteController {
 	public String delete(@RequestParam String _id, @RequestParam String category) {
 		writeService.delete(_id);
 		return "redirect:/list?num=1&menu_id=2&category=" + category;
+	}
+
+	@GetMapping("/banjjak")
+	public String get_banjjak(){
+		List<BanjjakVo> banjjakVoList = userService.selectBanjjak();
+		for (BanjjakVo banjjakVo : banjjakVoList) {
+			System.out.println(banjjakVo);
+		}
+		return "/banjjak";
+	}
+	@GetMapping("/banjjaklist")
+	@ResponseBody
+	public List<JSONObject> get_banjjaklist(){
+		List<JSONObject> getView = new ArrayList<>();
+		List<BanjjakVo> banjjakVoList = userService.selectBanjjak();
+		for (BanjjakVo vo : banjjakVoList) {
+			JSONObject data = new JSONObject();
+			data.put("username", vo.getUsername());
+			data.put("usernickname", vo.getUsernickname());
+			data.put("userpetinfo", vo.getUserpetinfo());
+			data.put("profiledata", vo.getProfiledata());
+			getView.add(data);
+		}
+		return getView;
 	}
 
 

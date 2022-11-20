@@ -68,9 +68,10 @@
                         else if(element.tag == 3) {
                             str += "<td>질문</td>" }
                         str += "<td style=\'cursor:pointer\' onclick=\'communityRead(" + element._id +")\'> "+ element.title +" ["+element.commentcount+"] </td>"
-                        str += "<td> "+ element.username +"</td>"
+                        str += "<td> "+ element.usernickname +"</td>"
                         str += "<td> "+ element.time + "</td>"
                         str += "<td> "+ element.readcount +"</td>"
+                        //str += "<td><input type = "hidden" name="username" value='"+element.username+"'></td>"
                         str += "</tr>"
                         str += "</table>"
                     })
@@ -83,6 +84,17 @@
             const form = document.getElementById("listform");
             $('#_id').val(_id);
             form.submit();
+        }
+
+        window.onload = function() {
+            const btng = document.getElementsByClassName("btn-group");
+            const atag = btng[0].getElementsByTagName("a");
+
+            if( ${tag} != 100){
+                atag[${tag}+1].classList.add("active");
+            }if( ${tag} == 100){
+                atag[0].classList.add("active");
+            }
         }
     </script>
 
@@ -102,10 +114,11 @@
 
     <form id = "listform" method="get" action="/communityRead">
         <input type="hidden" id="_id" name="_id">
-
         <table class="table" id="articleListBox" >
         </table>
+        <c:if test="${user.username != null}">
         <a href="/communityWriteForm" class="btn btn-primary" style="float: right;">글쓰기</a>
+        </c:if>
         <br>
     </form>
 
