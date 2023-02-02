@@ -34,7 +34,6 @@
 
         div  { width: 100%; text-align: center; padding: 0;}
 
-
         .con { width:100% }
 
         #form1 { width:100%; }
@@ -43,7 +42,6 @@
         hr  {  margin-bottom:70px; }
 
         .signuplabel { margin-top: 50px; }
-
 
     </style>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -57,30 +55,25 @@
                     alert('아이디를 입력해주세요.');
                     username.focus();
 
-
                 } else if (userpassword.value == '') {
                     e.preventDefault();
                     alert('비밀번호를 입력해주세요.');
                     userpassword.focus();
-
 
                 } else if (repasswd.value == '') {
                     e.preventDefault();
                     alert('비밀번호 확인을 입력해주세요.');
                     repasswd.focus();
 
-
                 } else if (usernickname.value == '') {
                     e.preventDefault();
                     alert('닉네임을 입력해주세요.');
                     usernickname.focus();
 
-
                 } else if(useremail.value == '') {
                     e.preventDefault();
                     alert('이메일을 입력해주세요.');
                     useremail.focus();
-
 
                 } else if(usersido.value == '') {
                     e.preventDefault();
@@ -117,12 +110,9 @@
                     userpassword.focus();
 
                 } else {
-
                     alert($('#usernickname').val() + '님 환영합니다!');
                 }
-
             });
-
 
             $('#username').on('change keyup', function() {
                 const username = document.getElementById('username').value.length;
@@ -156,8 +146,6 @@
                     $('#pwCheck').text('');
                 }
             });
-
-
 
             $('#repasswd').on('change keydown', function() {
                 const repasswd  = document.getElementById('repasswd').value;
@@ -200,9 +188,6 @@
                     $('#userpet').attr('value', $('#selectPet').val());
 
                 }
-
-
-
 
             });
 
@@ -286,8 +271,6 @@
             return userpetText;
         }
 
-
-
     </script>
 </head>
 <body>
@@ -339,12 +322,10 @@
                         <input type="text" id="userpet" name="userpet" style="width:350px;" />
                         <span id="petCheck"></span>
                     </div>
-
                     <div><input type="submit" id="signup" name="signup" class="btn btn-primary" value="가입하기"/></div>
                 </div>
             </div>
         </form>
-
     </div>
 </main>
 </body>

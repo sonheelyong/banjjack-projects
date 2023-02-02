@@ -44,13 +44,11 @@
 
         .findPasswUpdatelabel { margin-top: 50px; }
 
-
         .label1 { margin-bottom: 20px;}
 
         .label2 { margin-bottom: 20px; }
 
         .flex, .flex2 { display: flex; justify-content: center; }
-
 
     </style>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -105,12 +103,7 @@
                 }
             });
 
-
-
-
         } // window.load end
-
-
 
         // 비밀번호 유효성 검사
         function passwordCheck(userpassword) {
@@ -124,10 +117,7 @@
             }
         }
 
-
     </script>
-
-
 </head>
 <body>
 <div class="findPasswdUpdateForm">
@@ -144,8 +134,6 @@
             <div><span id="re_pwCheck" class="block4"></span></div>
 
             <div><input type="submit" class="btn btn-primary" id="pwOK" name="pwOK" value="확인"/></div>
-
-
         </div>
     </form>
 </div>

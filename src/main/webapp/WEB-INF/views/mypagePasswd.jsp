@@ -105,10 +105,7 @@
                 }
             });
 
-
         } // window.load end
-
-
 
         // 비밀번호 유효성 검사
         function passwordCheck(userpassword) {
@@ -121,7 +118,6 @@
                 $('#pwCheck').text('');
             }
         }
-
 
     </script>
 </head>
@@ -148,7 +144,6 @@
             </div>
             <div><input type="submit" class="btn btn-primary" id="pwOK" name="pwOK" value="변경"/></div>
             <div class="bottom-a"><a href="/myPageForm">이전으로</a></div>
-
         </div>
     </form>
 </div>

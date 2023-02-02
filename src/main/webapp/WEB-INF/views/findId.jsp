@@ -64,18 +64,12 @@
                     alert('이메일을 입력해주세요.');
                     useremail.focus();
                 }
-
-            });
-
-
+            })
             $('#useremailCheck').html('아이디: ${username}').css('font-size', '18px');
-
 
         } // window.load end
 
     </script>
-
-
 </head>
 <body>
 <main class="form-signin w-100 m-auto">
@@ -98,7 +92,6 @@
                     <span>⏐</span>
                     <a href="/login" id="goLogin">로그인</a>
                 </div>
-
             </div>
         </form>
     </div>

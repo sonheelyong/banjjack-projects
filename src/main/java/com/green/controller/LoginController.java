@@ -42,6 +42,7 @@ public class LoginController {
         return "/login";
     }
 
+    // 로그아웃
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("login");
@@ -221,10 +222,17 @@ public class LoginController {
 
     // 마이페이지창
     @GetMapping("/myPageForm")
-    public String myPageForm(HttpSession session) {
+    public String myPageForm(HttpSession session,
+                             Model model) {
         if(session.getAttribute("login") == null) {
             return "redirect:/login";
         }
+
+        UserVo user = (UserVo) session.getAttribute("login");
+        String newusername = user.getUsername();
+        UserVo userVo = userService.selectUserPetInfo(newusername);
+        String userpetinfo = userVo.getUserpetinfo();
+        model.addAttribute("userpetinfo", userpetinfo);
 
         return "/mypage";
     }
@@ -411,14 +419,7 @@ public class LoginController {
         String UserprofileImg = profileService.getUserProfile(username);
         return UserprofileImg;
     }
-    /*
-     * 내가 해야될것
-     * vo에 있는 username이랑 같은 유저네임일때 profildata를 반환하고 싶음
-     *
-     *
-     *
-     *
-     * */
+
 
 
 }

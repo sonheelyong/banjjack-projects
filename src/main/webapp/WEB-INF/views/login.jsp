@@ -66,25 +66,15 @@
                     alert('아이디를 입력해주세요.');
                     username.focus();
 
-
                 } else if (userpassword.value == '') {
                     e.preventDefault();
                     alert('비밀번호를 입력해주세요.');
                     userpassword.focus();
-
                 }
-
             });
-
-
         } // window.load end
 
-
-
-
     </script>
-
-
 </head>
 <body class="box-align">
 <main class="form-login w-100 m-auto">
@@ -109,12 +99,9 @@
                     </c:if>
                 </div>
 
-
                 <div class="btn-login">
                     <input type="submit" class="btn btn-primary" id="login" name="login" value="로그인"/>
                 </div>
-
-
 
                 <div class="a-tag">
                     <a href="/signup" id="gosignup">회원가입</a>
@@ -128,5 +115,4 @@
     </div>
 </main>
 </body>
-
 </html>

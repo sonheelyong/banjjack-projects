@@ -53,9 +53,6 @@
 
         }
 
-
-
-
         a { text-decoration: none; font-size: 16px; }
 
         div:nth-child(n+12):nth-child(-n+19) { display: inline; }
@@ -69,9 +66,7 @@
 
         hr  { margin-bottom:70px;  }
 
-
         .mypagelabel { margin-top: 20px; }
-
 
         #preview { width: 150px; height: 150px; border-radius: 40px;}
 
@@ -133,15 +128,12 @@
 
                 }
 
-
             }) // form event end
-
 
             // 이미지 업로드 버튼 이벤트 (이미지 미리보기)
             $('#btnUpload').click(function (e) {
                 $('#profile_img').click();
             });
-
 
             $('#usernickname').on('change keyup', function() {
                 const usernickname = document.getElementById('usernickname').value.length;
@@ -153,7 +145,6 @@
                     $('#unicknameCheck').text('');
                 }
             });
-
 
             $('#userpet').attr('readonly', 'readonly');
             $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
@@ -181,11 +172,8 @@
                     $('#userpet').attr('placeholder', '');
                     $('#userpet').removeAttr('readonly');
                     $('#userpet').attr('value', $('#selectPet').val());
-
                 }
-
             });
-
 
             $('#userpetinfo').on('keyup', function() {
                 $('#test_cnt').html("("+$(this).val().length+" / 300)");
@@ -195,12 +183,9 @@
                     $('#test_cnt').html("(300 / 300)");
                     alert("300자 이내로 입력 가능");
                 }
-
             });
 
-
         }// window.onload end
-
 
         function nicknameCheck(usernickname) {
             $.ajax({
@@ -225,7 +210,6 @@
                 });
         }
 
-
         // userpet 콤보박스 text에 옮겨적기
         function re_userpetPrint(selectPet) {
             let userpetText = selectPet.options[selectPet.selectedIndex].text;
@@ -245,11 +229,8 @@
                     fileName = input.files[0].name;
                     fileSrc  = e.target.result;
                     convertContent(fileName, fileSrc);
-
                 };
-
                 reader.readAsDataURL(input.files[0]);
-
             } else {
                 document.getElementById('preview').src = "";
             }
@@ -288,7 +269,6 @@
             });
         }
 
-
         $.ajax({
             method: "get",
             url:  "/userprofileImg?username=${user.username}",
@@ -311,7 +291,6 @@
                 console.log("post.js오류!!333" + e)
             }
         });
-
 
     </script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>

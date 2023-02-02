@@ -74,10 +74,7 @@
                         location.reload();
                     }
                 }
-
-
             });
-
         } // window.load end
 
     </script>
@@ -103,7 +100,6 @@
 
             <div><input type="submit" class="btn btn-primary" id="pwOK" name="pwOK" value="탈퇴하기"/></div>
             <div class="bottom-a"><a href="javascript:history.back()">이전으로</a></div>
-
 
         </div>
     </form>
